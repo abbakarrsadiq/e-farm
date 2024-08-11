@@ -5,7 +5,7 @@ function App() {
   return (
     <>
       <div>
-        Welcome to the world with Abubakar Developer
+        Welcome to the world with Abubakar Developer project
       </div>
     </>
   )
