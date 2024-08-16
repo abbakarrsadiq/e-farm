@@ -1,0 +1,128 @@
+.verify-wrapper {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    align-items: center;
+    justify-content: center;
+  
+    @media (max-width: 768px) {
+      align-items: center;
+      text-align: center;
+      margin-left: 25px;
+    }
+  }
+  
+  .image-container {
+    flex: 1;
+    max-width: 700px;
+    height: 864px;
+    display: block;
+    background: #F5F0EC;
+    justify-content: center;
+    text-align: center;
+    padding-top: 50px;
+  
+    @media (max-width: 768px) {
+      display: none;
+    }
+  }
+  
+  .image {
+    width: 556px;
+    height: 720px;
+    border-radius: 30px;
+  }
+  
+  .verify-container {
+    max-width: 400px;
+    margin: 0 auto;
+    margin-top: 6.875rem;
+    background-color: #FFFF;
+  
+    @media (max-width: 768px) {
+      width: 100%;
+      margin-top: 0rem;
+      padding: 1rem;
+      align-items: center;
+    }
+  }
+  
+  .form {
+    width: 360px;
+    height: 356px;
+    gap: 40px;
+  
+    @media (max-width: 768px) {
+      width: 100%;
+      height: auto;
+      gap: 20px;
+    }
+  }
+  
+  .modal-logo {
+    position: absolute;
+    width: 50px;
+    margin-bottom: 20px;
+    justify-self: center;
+    right: 50%;
+    top: -20%;
+  
+    @media (max-width: 768px) {
+      width: 40px;
+      top: -10%;
+    }
+  }
+  
+  .back-home {
+    display: inline-block;
+    margin-bottom: 1rem;
+    color: #333;
+    text-decoration: none;
+    position: absolute;
+    top: 3%;
+    left: 50%;
+    transform: translateX(-50%);
+  
+    @media (max-width: 768px) {
+      position: static;
+      transform: none;
+      margin-bottom: 0.5rem;
+    }
+  }
+  
+  .signup-link {
+    text-align: center;
+    margin-top: 1rem;
+    color: #429875;
+  
+    a {
+      color: #429875;
+      text-decoration: none;
+    }
+  
+    @media (max-width: 768px) {
+      margin-top: 0.5rem;
+    }
+  }
+  
+  .btn-login {
+    background-color: #75C799;
+    color: white;
+    width: 100%;
+    padding: 0.75rem;
+    border: none;
+    margin-top: 1rem;
+  
+    @media (max-width: 768px) {
+      padding: 0.5rem;
+      margin-top: 0.5rem;
+    }
+  }
+  
+  .btn-login:hover {
+    background-color: #66b88d;
+    outline: none;
+    box-shadow: none;
+  }
+  
