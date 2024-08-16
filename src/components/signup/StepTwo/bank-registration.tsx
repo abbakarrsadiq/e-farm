@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './styles.scss';
+import './bank.scss';
 import ProgressSteps from '../steps/progressSteps';
 import formImage from './bankImage.png';
 

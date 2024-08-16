@@ -1,7 +1,7 @@
 import React from 'react';
 import './verify.scss';
 import formImage from './loginLogo.png';
-import Logo from './modalLogo.png';
+import Logo from '../signup/stepFive/modalLogo.png';
 
 export const Verify: React.FC = () => {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
