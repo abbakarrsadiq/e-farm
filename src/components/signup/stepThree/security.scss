@@ -1,0 +1,281 @@
+body {
+    overflow: hidden;
+  }
+  
+  .security-wrapper {
+      display: flex;
+      width: 100vw;
+      height: 100vh; 
+    }
+    
+    .image-container {
+      flex: 1;
+      max-width: 700px;
+      height: 864px;
+      display: block;
+      background: #F5F0EC;
+      justify-content: center;
+      text-align: center;
+      padding-top: 50px;
+    }
+  
+    .image {
+      width: 556px;
+      height: 720px;
+      border-radius: 30px;
+    }
+    
+    .security-container {
+      flex: 1;
+      max-width: 484px;
+      height: 100vh;
+      gap: 56px;
+      margin-left: 3.875rem;
+      margin-top: 4.475rem;
+      background-color: #FFF;
+      position: relative;
+    }
+    .security-container::-webkit-scrollbar {
+      width: 0;
+      background: transparent;
+  }
+  
+    security.form {
+      overflow-y: auto;
+      overflow-x: hidden;
+      box-sizing: border-box;
+      width: 484px;
+      min-height: 100vh;
+      height: calc(100vh - 8.35rem);
+      gap: 40px;
+      margin-left: 20px;
+      padding-left: 20px;
+      padding-top: 20px;
+    }
+    .form::-webkit-scrollbar {
+      width: 0;
+      background: transparent;
+  }
+  
+        .form-header {
+          display: flex;
+          justify-content: space-between;
+          margin-bottom: 20px;
+          width: 100vw;
+          padding-top: 10px;
+  
+          a {
+              font-size: 14px;
+              color: #000;
+              text-decoration: none;
+          }
+      }
+
+
+      .thumbs {
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap;
+        margin-left: -20px;
+        }
+
+        .thumb-div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        width: 17%;
+        }
+
+        .thumb {
+            position: absolute;
+            transform: translateY(-50%);
+            background: #F6FEFC;
+            width: 40px;
+            height: 40px;
+            margin: 15px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #429875;
+            font-size: 1.75rem;
+            cursor: pointer;
+        
+        
+        &.success {
+            background-color: #36b37e;
+            color: white;
+        }
+
+        &.error {
+            background-color: #ff4d4d;
+            color: white;
+        }
+
+        &.pending {
+            background-color: #eaecf0;
+        }
+        }
+        
+    
+        .info {
+            background: #FFFCF5;
+            color: #B54708;
+            margin-right: 7px;
+            padding-top: 40px;
+            margin-top: 20px;
+            width: 70%;
+        }
+
+        .info .icon {
+          gap: 10px;
+          margin-right: 10px;
+        }
+        .skip-option {
+            width: 100%;
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            border-radius: 50%;
+        
+            input[type="checkbox"] {
+            padding-top: 10px;
+            margin-top: 7px;
+            margin-right: 5px;
+            border: 1px solid #D0D5DD;
+            }
+            .skip-items {
+            font-size: 14px;
+            margin-right: 6.6rem;
+            border: 2px solid #EAECF0;
+            height: 30px;
+            width: 30%;
+            border-radius: 10px;
+            text-align: center;
+            }
+        }      
+        .security-buttons {
+            display: flex-end;
+            justify-content: space-between;
+            width: 100%;
+        }
+        .security-buttons .back {
+            width: 35%;
+            height: 44px;
+            padding: 10px 18px;
+            margin-right: 10px;
+            border-radius: 8px;
+            border: 1px solid #EAECF0;
+            text-align: center;
+        }
+        
+        .security-buttons .continue {
+            width: 40%;
+            height: 44px;
+            padding: 10px 18px;
+            color: #fff;
+            background-color: #36b37e;
+            border-radius: 8px;
+            border: 1px solid #EAECF0;
+            text-align: center;
+        }
+  
+    @media (max-width: 768px) {
+      .security-wrapper {  
+      display: flex;
+      width: 350px;
+      height: 554px; 
+      }
+    
+      .login-image {
+        display: none;
+      }
+    
+      .security-container {
+        max-width: 343px;
+        height: fit-content;
+        gap: 24px;
+        background-color: #FFF;
+        position: relative;
+      }
+  
+    .form-header {
+      display: none;
+      justify-content: space-between;
+      width: 100%;
+  
+      a {
+          font-size: 14px;
+          color: #000;
+          text-decoration: none;
+  
+          &.login-link {
+              color: #000;
+              font-size: 14px;
+              margin-right: -1px;
+              font-family: Inter;
+              font-size: 14px;
+              font-weight: 400;
+              line-height: 20px;
+  
+          }
+      }
+  }
+  
+    }
+    
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    p {
+      color: #6c757d;
+      margin-bottom: 1rem;
+    }
+    
+    .sign-up-link {
+      text-align: center;
+      margin-top: 1rem;
+    
+      a {
+        color: #429875;
+        text-decoration: none;
+      }
+    }
+    
+    
+    .lat {
+      font-size: 10px;
+      color: #667085;
+      margin-top: 0;
+    }
+
+  .buttons {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+  .buttons .back {
+    width: 45%;
+    height: 44px;
+    padding: 10px 18px;
+    border-radius: 8px;
+    border: 1px solid #EAECF0;
+    background: #FFFFFF;
+    color: #344054;
+    text-align: center;
+  }
+  
+  .buttons .continue {
+    width: 50%;
+    height: 44px;
+    padding: 10px 18px;
+    color: #fff;
+    background-color: #36b37e;
+    border-radius: 8px;
+    border: 1px solid #EAECF0;
+    text-align: center;
+  }

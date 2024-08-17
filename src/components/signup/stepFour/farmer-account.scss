@@ -1,0 +1,234 @@
+
+body {
+  overflow: auto; 
+  height: 180%;
+}
+
+.farmer-wrapper {
+  display: flex;
+  width: 100vw;
+  height: 180%;
+}
+
+.image-container {
+  flex: 1;
+  max-width: 700px;
+  height: 100%;
+  display: block;
+  background: #F5F0EC;
+  justify-content: center;
+  text-align: center;
+  padding-top: 50px;
+}
+
+.image {
+  width: 556px;
+  height: 720px;
+  border-radius: 30px;
+}
+
+
+.farmer-container {
+  overflow-y: auto;
+  flex: 1;
+  max-width: 484px;
+  height: 180%;
+  gap: 56px;
+  margin-left: 3.875rem;
+  margin-top: 4.475rem;
+  background-color: #FFF;
+  position: relative;
+}
+
+
+.farmer-container::-webkit-scrollbar {
+  width: 0;
+  background: transparent;
+}
+
+
+.farmer-form {
+  overflow-y: auto;
+  overflow-x: hidden;
+  box-sizing: border-box;
+  width: 100%;
+  height: 180%;
+  gap: 40px;
+}
+
+
+.farmer-form::-webkit-scrollbar {
+  width: 0;
+  background: transparent;
+}
+
+
+@media (max-width: 768px) {
+  .farmer-wrapper {
+    justify-content: center;
+    align-items: center;
+    height: 180%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  .image-container {
+    display: none;
+  }
+
+  .farmer-container {
+    max-width: 404px;
+    width: 100%;
+    height: fit-content;
+    gap: 24px;
+    margin: 0 auto;
+    padding: 0;
+    background-color: #FFF;
+    box-sizing: border-box;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  .farmer-form {
+    overflow-y: auto;
+    overflow-x: hidden;
+    margin-left: 0;
+    width: 100%;
+    height: 180%;
+  }
+}
+
+
+h1 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+p {
+  color: #6c757d;
+  margin-bottom: 1rem;
+}
+
+
+.lat {
+  font-size: 10px;
+  color: #667085;
+  margin-top: 0;
+}
+
+
+
+h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+p {
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+.farmer-buttons {
+  display: flex;
+  justify-content: space-between;
+  width: 360px;
+  height: 100px;
+  padding-top: 30px;
+  margin-top: 12rem;
+}
+
+.farmer-buttons .back {
+  width: 45%;
+  height: 44px;
+  padding: 10px 18px;
+  border-radius: 8px;
+  border: 1px solid #EAECF0;
+  background: #FFFFFF;
+  color: #344054;
+  text-align: center;
+}
+
+.farmer-buttons .continue {
+  width: 50%;
+  height: 44px;
+  padding: 10px 18px;
+  color: #fff;
+  background-color: #36b37e;
+  border-radius: 8px;
+  border: 1px solid #EAECF0;
+  text-align: center;
+  margin-right: 0.4rem;
+}
+
+.form-group {
+  width: 388px;
+  height: 66px;
+  gap: 6px;
+}
+
+.inputs {
+  width: 360px;
+  height: 24px;
+  gap: 8px;
+}
+.file-upload-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.file-upload-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  background-color: #ffffff;
+  padding: 10px;
+  border: 2px solid #eaecf0;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.upload-icon {
+  font-size: 24px;
+  color: #000;
+}
+
+.upload-placeholder {
+  margin-top: 10px;
+  height: 126px;
+}
+
+.upload-progress-wrapper {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.upload-details {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+.file-name, .file-size {
+  margin-bottom: 5px;
+  text-align: left;
+}
+
+.upload-progress {
+  width: 100%;
+  background-color: #ddd;
+  border-radius: 4px;
+  height: 8px;
+  position: relative;
+}
+
+.upload-progress-bar {
+  height: 100%;
+  border-radius: 4px;
+  background-color: #429875;
+  position: relative;
+}
