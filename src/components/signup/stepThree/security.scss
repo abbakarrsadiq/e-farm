@@ -40,13 +40,12 @@ body {
       background: transparent;
   }
   
-    .form {
+    security.form {
       overflow-y: auto;
       overflow-x: hidden;
       box-sizing: border-box;
-      width: 100vw;
+      width: 484px;
       min-height: 100vh;
-      max-height: 100vh;
       height: calc(100vh - 8.35rem);
       gap: 40px;
       margin-left: 20px;
@@ -77,6 +76,7 @@ body {
         display: flex;
         gap: 20px;
         flex-wrap: wrap;
+        margin-left: -20px;
         }
 
         .thumb-div {
@@ -118,29 +118,19 @@ body {
         }
         }
         
+    
         .info {
-            width: 75%;
-            display: flex;
-            border: 1px solid #FEF0C7;
-            background: #FFFCF5;
-            color: #BE5F2B;
-            padding: 5px;
-            border-radius: 15px;
-            margin: 20px;
-            font-size: 14px;
-        }
-        .info-icon {
-            font-size: 24px;
-            margin: 10px;
             background: #FFFCF5;
             color: #B54708;
             margin-right: 7px;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            padding-top: 40px;
+            margin-top: 20px;
+            width: 70%;
+        }
+
+        .info .icon {
+          gap: 10px;
+          margin-right: 10px;
         }
         .skip-option {
             width: 100%;
@@ -158,10 +148,10 @@ body {
             }
             .skip-items {
             font-size: 14px;
-            margin-right: 5px;
+            margin-right: 6.6rem;
             border: 2px solid #EAECF0;
             height: 30px;
-            width: 40%;
+            width: 30%;
             border-radius: 10px;
             text-align: center;
             }
@@ -169,7 +159,7 @@ body {
         .security-buttons {
             display: flex-end;
             justify-content: space-between;
-            width: 160%;
+            width: 100%;
         }
         .security-buttons .back {
             width: 35%;

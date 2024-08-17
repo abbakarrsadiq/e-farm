@@ -33,12 +33,8 @@ export const Security: React.FC = () => {
         <img src={formImage} alt="Farm Warehouse" />
       </div>
       <ProgressSteps currentStep={3} totalSteps={4} />
-      <div className="form">
-        <div className="">
-          <div className="form-header">
-            <a href="/" className="back-home">Back home</a>
-            <a href="/login" className="login-link">Already have an account? Log in</a>
-          </div>
+      <div className="security-container">
+        <div className="security-form">
           <h2>Create Account</h2>
           <h5>Security - Setup Fingerprint (Optional)</h5>
           <p>Capture Fingerprint (Your L-R index fingers)</p>
@@ -59,9 +55,8 @@ export const Security: React.FC = () => {
 
             </div>
           </div>
-          <div id="info">
-            <i className="info-icon">ℹ️</i>
-            <p className='info'>Place your finger on the fingerprint scanner to capture your fingerprint. Ensure your finger covers the entire scanner.</p>
+          <div className="mt-10 p-1">
+            <p className='info'><i className="icon"> ℹ️  </i>Place your finger on the fingerprint scanner to capture your fingerprint. Ensure your finger covers the entire scanner.</p>
           </div>
           <div className="skip-option">
             <div className="skip-items">
@@ -78,7 +73,7 @@ export const Security: React.FC = () => {
             </div>
           </div>
           <form onSubmit={formik.handleSubmit}>
-            <div className="buttons">
+            <div className="security-buttons">
               <button type="submit" name="back" className="back">
                 Back
               </button>

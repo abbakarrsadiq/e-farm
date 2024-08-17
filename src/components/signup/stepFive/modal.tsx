@@ -19,7 +19,7 @@ const Modal: React.FC<ModalProps> = ({ show, onClose, onAddAnotherFarm }) => {
         <div className="modal-header">
           <img src={Logo} alt="Logo" className="modal-logo" />
         </div>
-        <div className="modal-body">
+        <div id="modal-body">
           <h2>You have added 1 farm</h2>
           <p>Would you like to add another?</p>
         </div>

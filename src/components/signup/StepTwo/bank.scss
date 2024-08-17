@@ -27,10 +27,10 @@ body {
     
     .bank-container {
       flex: 1;
-      max-width: 484px;
+      max-width: 595px;
       height: 100vh;
       gap: 56px;
-      margin-left: 3.875rem;
+      margin-left: 3.475rem;
       margin-top: 4.475rem;
       background-color: #FFF;
       position: relative;
@@ -40,16 +40,18 @@ body {
       background: transparent;
   }
   
-    .form {
+    .bank-form {
       overflow-y: auto;
       overflow-x: hidden;
       box-sizing: border-box;
-      width: 404px;
+      width: 388px;
       min-height: 100vh;
       max-height: 100vh;
       height: calc(100vh - 8.35rem);
       gap: 40px;
+      margin-left: -1.8rem;
     }
+
     .form::-webkit-scrollbar {
       width: 0;
       background: transparent;
@@ -107,7 +109,7 @@ body {
       justify-content: space-between;
       margin: 2px;
       width: 100%;
-      padding-top: 10px;
+      padding-top: -50px;
   
       a {
           font-size: 14px;

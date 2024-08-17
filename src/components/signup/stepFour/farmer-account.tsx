@@ -2,13 +2,13 @@ import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { Table, Button, Form, InputGroup } from 'react-bootstrap';
+import { Button, Form, Row, Col } from 'react-bootstrap';
 import './farmer-account.scss';
 import ProgressSteps from '../steps/progressSteps';
 import formImage from './cow.png';
 import Modal from '../stepFive/modal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCloudArrowUp, faEdit, faCheck, faTrashAlt, faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
+import { faCloudArrowUp, faCheck } from '@fortawesome/free-solid-svg-icons';
 
 const validationSchema = Yup.object({
   name: Yup.string().required('Farm Name is required'),
@@ -99,19 +99,6 @@ export const Farmer: React.FC = () => {
     else return `${(size / (1024 * 1024)).toFixed(2)} MB`;
   };
 
-  const handleNext = () => {
-    if (currentFarmIndex < farms.length - 1) {
-      setCurrentFarmIndex(prevIndex => prevIndex + 1);
-      carouselRef.current?.scrollBy({ left: 300, behavior: 'smooth' });
-    }
-  };
-
-  const handlePrev = () => {
-    if (currentFarmIndex > 0) {
-      setCurrentFarmIndex(prevIndex => prevIndex - 1);
-      carouselRef.current?.scrollBy({ left: -300, behavior: 'smooth' });
-    }
-  };
 
   const handleCloseModal = () => {
     setShowModal(false);
@@ -145,17 +132,13 @@ export const Farmer: React.FC = () => {
         <img src={formImage} alt="Farm Warehouse" className='image'/>
       </div>
         <ProgressSteps currentStep={4} totalSteps={4} />
-      <div className="form">
-        <div className="form-section">
-            <div style={{ width: '350px', display: 'flex', justifyContent: 'space-between', color: 'red' }}>
-              <a href="/" className="">Back home</a>
-              <a href="/login" className="">Already have an account? Log in</a>
-            </div>
+      <div className="farmer-container">
+        <div className="farmer-form">
           <Form onSubmit={formik.handleSubmit}>
             <h2>Create Account</h2>
             <p>Farm Registration</p>
-            <div>
-              <div>
+            {/* <div> */}
+              {/* <div>
               <table className="farms-table" ref={carouselRef}>
                   <tbody>
                     {farms.length > 0 && (
@@ -183,8 +166,8 @@ export const Farmer: React.FC = () => {
                     )}
                   </tbody>
                 </table>
-              </div>
-              <div className="carousel-controls d-flex m-5">
+              </div> */}
+              {/* <div className="carousel-controls d-flex m-5">
                 <Button variant="outline-secondary" className="carousel-button prev" onClick={handlePrev}>
                   <FontAwesomeIcon icon={faChevronLeft} />
                 </Button>
@@ -199,10 +182,10 @@ export const Farmer: React.FC = () => {
                 <Button variant="outline-secondary" className="carousel-button next" onClick={handleNext}>
                   <FontAwesomeIcon icon={faChevronRight} />
                 </Button>
-              </div>
-            </div>
+              </div> */}
+            {/* </div> */}
 
-            <Form.Group>
+            <Form.Group style={{ width: '360px', height: '70px', marginBottom: '25px' }}>
               <Form.Label htmlFor="name">Farm Name*</Form.Label>
               <Form.Control
                 id="name"
@@ -215,37 +198,40 @@ export const Farmer: React.FC = () => {
                 {formik.errors.name}
               </Form.Control.Feedback>
             </Form.Group>
-             <Form.Group>
-              <Form.Label htmlFor="coordinate">Farm Coordinate (Optional)</Form.Label>
-              <div className="form-group">
-                <div className="coordinate-inputs">
-                  <div className="coordinate-item">
-                    <Form.Control
-                      id="longitude"
-                      type="text"
-                      placeholder="Enter Longitude"
-                      {...formik.getFieldProps('longitude')}
-                    />
-                    <p className='lat'>Ex: 8.0876° E</p>
+            <Form.Group className="mb-3">
+              <Row className="d-flex justify-content-between" style={{ width: '388px', height: '70px', gap: '30px' }}>
+                <Col>
+                  <Form.Label>Longtitude*</Form.Label>
+                  <Form.Control
+                    type="text"
+                    placeholder="Longtitude"
+                    {...formik.getFieldProps('longtitude')}
+                    isInvalid={Boolean(formik.touched.longitude && formik.errors.latitude)}
+                  />
+                  <Form.Control.Feedback type="invalid">
+                    {formik.errors.longitude}
+                  </Form.Control.Feedback>
+                </Col>
+                <Col>
+                  <Form.Label>Latitude*</Form.Label>
+                  <div className="gender-options">
+                  <Form.Control
+                    type="text"
+                    placeholder="Latitude"
+                    {...formik.getFieldProps('latitude')}
+                    isInvalid={Boolean(formik.touched.longitude && formik.errors.latitude)}
+                  />
+                    <Form.Control.Feedback type="invalid">
+                      {formik.errors.latitude}
+                    </Form.Control.Feedback>
                   </div>
-                  <div className="coordinate-item">
-                    <Form.Control
-                      id="latitude"
-                      type="text"
-                      placeholder="Enter Latitude"
-                      {...formik.getFieldProps('latitude')}
-                    />
-                    <p className='lat'>4.7650° N</p>
-                  </div>
-                </div>
-              </div>
+                </Col>
+              </Row>
             </Form.Group>
-
-
             <Form.Group>
               <Form.Label>Crops cultivated and planting season</Form.Label>
               {crops.map((crop, index) => (
-                <div key={crop.id} className="farm-group" style={{ backgroundColor: '#F9FAFB', padding: '5px', margin: 0 }}>
+                <div key={crop.id} className="farm-group" style={{ backgroundColor: '#F9FAFB', marginBottom: '10px', width: '360px', height: '204px', gap: '8px'}}>
                   <div className="crop-number">CROP {index + 1}</div>
                   <Form.Group>
                     <Form.Label>What crop do you cultivate on this farm?</Form.Label>
@@ -260,40 +246,41 @@ export const Farmer: React.FC = () => {
                       <option value="">Egusi</option>
                     </Form.Control>
                   </Form.Group>
-                  <div className="form-group" style={{ backgroundColor: '#F9FAFB', padding: '10px' }}>
+                  <div className="form-group" style={{ backgroundColor: '#F9FAFB', padding: '10px', width: '360px', height: '204px' }}>
                     <div style={{ display: "flex", gap: "10px", margin: "0" }}>
                       <div style={{ flex: 1 }}>
                         <Form.Label>Start Month</Form.Label>
                         <Form.Control as="select" className='select-site' required>
-                          <option value="">January</option>
-                          <option value="">February</option>
-                          <option value="">March</option>
-                          <option value="">April</option>
-                          <option value="">May</option>
-                          <option value="">June</option>
-                          <option value="">July</option>
-                          <option value="">August</option>
-                          <option value="">September</option>
-                          <option value="">October</option>
-                          <option value="">November</option>
-                          <option value="">December</option>
+
+                        <option value="jan">January</option>
+                          <option value="feb">February</option>
+                          <option value="mar">March</option>
+                          <option value="apr">April</option>
+                          <option value="may">May</option>
+                          <option value="jun">June</option>
+                          <option value="jul">July</option>
+                          <option value="aug">August</option>
+                          <option value="sep">September</option>
+                          <option value="oct">October</option>
+                          <option value="nov">November</option>
+                          <option value="dec">December</option>
                         </Form.Control>
                       </div>
                       <div style={{ flex: 1 }}>
                         <Form.Label>End Month</Form.Label>
                         <Form.Control as="select" className='select-site' required>
-                          <option value="">January</option>
-                          <option value="">February</option>
-                          <option value="">March</option>
-                          <option value="">April</option>
-                          <option value="">May</option>
-                          <option value="">June</option>
-                          <option value="">July</option>
-                          <option value="">August</option>
-                          <option value="">September</option>
-                          <option value="">October</option>
-                          <option value="">November</option>
-                          <option value="">December</option>
+                          <option value="jan">January</option>
+                          <option value="feb">February</option>
+                          <option value="mar">March</option>
+                          <option value="apr">April</option>
+                          <option value="may">May</option>
+                          <option value="jun">June</option>
+                          <option value="jul">July</option>
+                          <option value="aug">August</option>
+                          <option value="sep">September</option>
+                          <option value="oct">October</option>
+                          <option value="nov">November</option>
+                          <option value="dec">December</option>
                         </Form.Control>
                       </div>
                     </div>
@@ -316,10 +303,9 @@ export const Farmer: React.FC = () => {
                 + Add another crop
               </Button>
             </Form.Group>
-
-            <Form.Group>
-              <Form.Label>Upload Farm documents</Form.Label>
-              <div className="file-upload-wrapper">
+            <Form.Group style={{ width: '360px', height: '102px', gap: '16px', marginTop: '10px' }}>
+            <Form.Label>Upload Farm documents</Form.Label>
+              <div>
                 <Form.Control
                   type="file"
                   id="file-upload"
@@ -331,12 +317,12 @@ export const Farmer: React.FC = () => {
                 <label htmlFor="file-upload" className="file-upload-label">
                   <FontAwesomeIcon icon={faCloudArrowUp} className="upload-icon" />
                   <div className="upload-placeholder">
-                    <span style={{ color: '#28a745' }}>Click to upload</span> or drag and drop PNG, JPG, or PDF (max. 10mb)
+                    <span style={{ color: '#28a745'}}>Click to upload</span> or drag and drop PNG, JPG, or PDF (max. 10mb)
                   </div>
                 </label>
               </div>
               {files.length > 0 && (
-                <div className="upload-progress-wrapper">
+                <div className="upload-progress-wrapper" style={{ width: '360px', height: '50px', gap: '16px', marginTop: '10px' }}>
                   {files.map((file, index) => (
                     <div key={index} className="upload-details">
                       <div className="file-name">{file.name}</div>
@@ -347,7 +333,7 @@ export const Farmer: React.FC = () => {
                           style={{ width: `${file.progress}%`, backgroundColor: '#429875' }}
                         >
                           {file.complete && (
-                            <FontAwesomeIcon icon={faCheck} className="check-icon" />
+                            <FontAwesomeIcon icon={faCheck} className="check-icon" style={{ gap: '16px', marginTop: '15px' }} />
                           )}
                         </div>
                       </div>
@@ -357,7 +343,7 @@ export const Farmer: React.FC = () => {
               )}
             </Form.Group>
 
-            <div className="buttons">
+            <div className="farmer-buttons">
               <Button variant="secondary" type="button" className="back" onClick={() => navigate("/security")}>
                 Back
               </Button>

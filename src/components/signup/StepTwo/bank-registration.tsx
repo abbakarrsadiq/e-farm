@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
+import { Form, Button, Container, Row, Col } from 'react-bootstrap';
 import * as Yup from 'yup';
 import './bank.scss';
 import ProgressSteps from '../steps/progressSteps';
@@ -64,142 +65,104 @@ export const Bank: React.FC = () => {
       </div>
       <ProgressSteps currentStep={2} totalSteps={4} />
       <div className="form-container">
-        <div className="form">
-          <div className="form-header">
-            <a href="/">Back home</a>
-            <a href="/login" className="login-link">Already have an account? Log in</a>
-          </div>
+        <div className="bank-form">
           <form onSubmit={formik.handleSubmit} className="bank-container">
-            <h2>Create Account</h2>
-            <h3>Bank Details</h3>
+          <div className="form-container">
+            <div className="bank-form">
+              <Form onSubmit={formik.handleSubmit} className="bank-container">
+                <h2>Create Account</h2>
+                <h3>Bank Details</h3>
 
-            <div className="form-group">
-              <label>Do you have a SmartPhone?*</label>
-              <div className="bank-options">
-                <input
-                  type="radio"
-                  id="yes"
-                  name="smartphone"
-                  value="yes"
-                  checked={formik.values.smartphone === 'yes'}
-                  onChange={formik.handleChange}
-                  style={{
-                    width: '20px',
-                    height: '20px',
-                    backgroundColor: '#EAECF0',
-                    border: '1px solid #36b37e',
-                    borderRadius: '50%',
-                    position: 'relative',
-                    margin: '10px',
-                    marginRight: '10px',
-                  }}
-                  required
-                />
-                <label htmlFor="smartphone-yes" style={{ marginRight: '20px' }}>Yes</label>
-                <input
-                  type="radio"
-                  id="no"
-                  name="smartphone"
-                  value="no"
-                  checked={formik.values.smartphone === 'no'}
-                  onChange={formik.handleChange}
-                  style={{
-                    width: '20px',
-                    height: '20px',
-                    backgroundColor: '#EAECF0',
-                    border: '1px solid #36b37e',
-                    borderRadius: '50%',
-                    position: 'relative',
-                    marginRight: '10px',
-                  }}
-                  required
-                />
-                <label htmlFor="smartphone-no">No</label>
-              </div>
-            </div>
+                <Form.Group className="mb-3">
+                  <Form.Label>Do you have a Smartphone?*</Form.Label>
+                  <div className="bank-options">
+                    <Form.Check
+                      type="radio"
+                      id="yes"
+                      name="smartphone"
+                      value="yes"
+                      checked={formik.values.smartphone === 'yes'}
+                      onChange={formik.handleChange}
+                      label="Yes"
+                      style={{ marginRight: '20px' }}
+                    />
+                    <Form.Check
+                      type="radio"
+                      id="no"
+                      name="smartphone"
+                      value="no"
+                      checked={formik.values.smartphone === 'no'}
+                      onChange={formik.handleChange}
+                      label="No"
+                    />
+                  </div>
+                </Form.Group>
 
-            <div className="form-group">
-              <label>Do you have a Bank Account?*</label>
-              <div className="bank-options">
-                <input
-                  type="radio"
-                  id="bank-yes"
-                  name="bank"
-                  value="yes"
-                  onChange={handleBankAccountChange}
-                  style={{
-                    width: '20px',
-                    height: '20px',
-                    backgroundColor: '#EAECF0',
-                    border: '1px solid #36b37e',
-                    borderRadius: '50%',
-                    position: 'relative',
-                    marginRight: '10px',
-                  }}
-                  required
-                />
-                <label htmlFor="bank-yes" style={{ marginRight: '20px' }}>Yes</label>
-                <input
-                  type="radio"
-                  id="bank-no"
-                  name="bank"
-                  value="no"
-                  onChange={handleBankAccountChange}
-                  style={{
-                    width: '20px',
-                    height: '20px',
-                    backgroundColor: '#EAECF0',
-                    border: '1px solid #36b37e',
-                    borderRadius: '50%',
-                    position: 'relative',
-                    marginRight: '10px',
-                  }}
-                  required
-                />
-                <label htmlFor="bank-no">No</label>
-              </div>
-            </div>
+                <Form.Group className="mb-3">
+                  <Form.Label>Do you have a Bank Account?*</Form.Label>
+                  <div className="bank-options">
+                    <Form.Check
+                      type="radio"
+                      id="bank-yes"
+                      name="bank"
+                      value="yes"
+                      onChange={handleBankAccountChange}
+                      label="Yes"
+                      style={{ marginRight: '20px' }}
+                    />
+                    <Form.Check
+                      type="radio"
+                      id="bank-no"
+                      name="bank"
+                      value="no"
+                      onChange={handleBankAccountChange}
+                      label="No"
+                    />
+                  </div>
+                </Form.Group>
 
-            {hasBankAccount === 'yes' && (
-              <div className="bank-details">
-                <div className="form-group">
-                  <label htmlFor="bank">Bank*</label>
-                  <select id="bank" className="form-control" {...formik.getFieldProps('bank')}>
-                    <option value="">Guarantee Trust</option>
-                    <option value="">Guarantee Trust</option>
-                    <option value="">Guarantee Trust</option>
-                    <option value="">Guarantee Trust</option>
-                    <option value="">Guarantee Trust</option>
-                  </select>
-                  {formik.touched.bank && formik.errors.bank ? (
-                    <div className="error">{formik.errors.bank}</div>
-                  ) : null}
+                {hasBankAccount === 'yes' && (
+                  <div className="bank-details">
+                    <Form.Group className="mb-3">
+                      <Form.Label>Bank*</Form.Label>
+                      <Form.Control as="select" {...formik.getFieldProps('bank')}>
+                        <option value="">Guarantee Trust</option>
+                        <option value="">Guarantee Trust</option>
+                        <option value="">Guarantee Trust</option>
+                        <option value="">Guarantee Trust</option>
+                        <option value="">Guarantee Trust</option>
+                      </Form.Control>
+                      {formik.touched.bank && formik.errors.bank ? (
+                        <div className="error">{formik.errors.bank}</div>
+                      ) : null}
+                    </Form.Group>
+                    <Form.Group className="mb-3">
+                      <Form.Label>Personal Bank Account Number*</Form.Label>
+                      <Form.Control
+                        type="text"
+                        onChange={handleAccountNumberChange}
+                        placeholder="Enter your account number"
+                        {...formik.getFieldProps('accountNumber')}
+                        required
+                      />
+                      <p className={`validation-message ${isBankAccountValid ? 'success' : 'error'}`}>
+                        {validationMessage}
+                      </p>
+                    </Form.Group>
+                  </div>
+                )}
+
+                <div className="buttons">
+                  <Button type="button" onClick={() => navigate('/account')} variant="secondary" className="back">
+                    Back
+                  </Button>
+                  <Button type="submit" variant="primary" className="continue" onClick={() => navigate('/security')}>
+                    Continue
+                  </Button>
                 </div>
-                <div className="form-group">
-                  <label>Personal Bank Account Number*</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    onChange={handleAccountNumberChange}
-                    placeholder="Enter your account number"
-                    {...formik.getFieldProps('accountNumber')}
-                    required
-                  />
-                  <p className={`validation-message ${isBankAccountValid ? 'success' : 'error'}`}>
-                    {validationMessage}
-                  </p>
-                </div>
-              </div>
-            )}
-
-            <div className="buttons">
-              <button type="submit" name="back" className="back">
-                Back
-              </button>
-              <button type="submit" name="continue" className="continue">
-                Continue
-              </button>
+              </Form>
             </div>
+          </div>
           </form>
         </div>
       </div>

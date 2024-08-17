@@ -66,9 +66,8 @@ export const Account: React.FC = () => {
             <h2>Create Account</h2>
             <p>Personal Information</p>
 
-            {/* First Name and Last Name */}
             <Form.Group className="mb-3">
-              <Row className="d-flex justify-content-between" style={{ width: '388px', height: '72px' }}>
+              <Row className="d-flex justify-content-between" style={{ width: '388px', height: '72px', marginBottom: '10px' }}>
                 <Col>
                   <Form.Label>First Name*</Form.Label>
                   <Form.Control
@@ -96,9 +95,8 @@ export const Account: React.FC = () => {
               </Row>
             </Form.Group>
 
-            {/* Age and Gender */}
             <Form.Group className="mb-3">
-              <Row className="d-flex justify-content-between" style={{ width: '388px', height: '70px', gap: '24px' }}>
+              <Row className="d-flex justify-content-between" style={{ width: '388px', height: '70px', gap: '30px' }}>
                 <Col>
                   <Form.Label>Age*</Form.Label>
                   <Form.Control
@@ -142,7 +140,7 @@ export const Account: React.FC = () => {
               </Row>
             </Form.Group>
 
-            <Form.Group className="" style={{ width: '388px', height: '70px', gap: '6px', marginTop: '10px', marginBottom: '10px' }}>
+            <Form.Group className="" style={{ width: '388px', height: '70px', gap: '6px', marginTop: '10px', marginBottom: '25px' }}>
               <Form.Label>Residential Address*</Form.Label>
               <Form.Control
                 type="text"
@@ -155,7 +153,7 @@ export const Account: React.FC = () => {
               </Form.Control.Feedback>
             </Form.Group>
 
-            <Form.Group className="" style={{ width: '388px', height: '70px', gap: '6px', marginTop: '10px', marginBottom: '10px' }}>
+            <Form.Group className="" style={{ width: '388px', height: '70px', gap: '6px', marginTop: '10px', marginBottom: '20px' }}>
               <Form.Label>Site*</Form.Label>
               <Form.Control
                 as="select"
@@ -174,7 +172,7 @@ export const Account: React.FC = () => {
               </Form.Control.Feedback>
             </Form.Group>
 
-            <Form.Group className="" style={{ width: '388px', height: '70px', gap: '6px', marginTop: '10px', marginBottom: '10px' }}>
+            <Form.Group className="" style={{ width: '388px', height: '70px', gap: '6px', marginTop: '10px', marginBottom: '20px' }}>
               <Form.Label>ID Type*</Form.Label>
               <Form.Control
                 as="select"
@@ -193,7 +191,7 @@ export const Account: React.FC = () => {
             </Form.Group>
 
 
-            <Form.Group className="" style={{ width: '388px', height: '70px', gap: '6px', marginTop: '10px', marginBottom: '10px' }}>
+            <Form.Group className="" style={{ width: '388px', height: '70px', gap: '6px', marginTop: '10px', marginBottom: '30px' }}>
               <Form.Label>ID Number*</Form.Label>
               <Form.Control
                 type="text"
@@ -206,7 +204,6 @@ export const Account: React.FC = () => {
               </Form.Control.Feedback>
             </Form.Group>
 
-            {/* Upload ID Document */}
             <Form.Group className="mb-3" style={{ width: '388px', height: '84px' }}>
               <Form.Label>Upload ID document</Form.Label>
               <Form.Control
@@ -215,7 +212,7 @@ export const Account: React.FC = () => {
               />
             </Form.Group>
 
-            <Form.Group className="" style={{ width: '388px', height: '66px', marginTop: '1px', marginBottom: '10px' }}>
+            <Form.Group className="" style={{ width: '388px', height: '66px', marginTop: '1px', marginBottom: '33px' }}>
               <Form.Label>Create Password</Form.Label>
               <Form.Control
                 type="password"
@@ -228,7 +225,7 @@ export const Account: React.FC = () => {
               </Form.Control.Feedback>
             </Form.Group>
 
-            <Form.Group className="" style={{ width: '388px', height: '66px', marginTop: '10px', marginBottom: '10px' }}>
+            <Form.Group className="" style={{ width: '388px', height: '66px', marginTop: '10px', marginBottom: '33px' }}>
               <Form.Label>Confirm password</Form.Label>
               <Form.Control
                 type="password"
@@ -241,7 +238,7 @@ export const Account: React.FC = () => {
               </Form.Control.Feedback>
             </Form.Group>
 
-            <Form.Group className="mb-3" style={{ width: '388px', height: '80px', marginBottom: '10px' }}>
+            <Form.Group className="mb-3" style={{ width: '388px', height: '80px', marginBottom: '5px' }}>
               <Form.Label>Upload Profile picture (Optional)</Form.Label>
               <InputGroup>
                 <InputGroup.Text>
