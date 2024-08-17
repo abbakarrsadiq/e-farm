@@ -1,0 +1,185 @@
+body {
+    overflow: hidden;
+  }
+  
+  .bank-wrapper {
+      display: flex;
+      width: 100vw;
+      height: 100vh; 
+    }
+    
+    .image-container {
+      flex: 1;
+      max-width: 700px;
+      height: 864px;
+      display: block;
+      background: #F5F0EC;
+      justify-content: center;
+      text-align: center;
+      padding-top: 50px;
+    }
+  
+    .image {
+      width: 556px;
+      height: 720px;
+      border-radius: 30px;
+    }
+    
+    .bank-container {
+      flex: 1;
+      max-width: 595px;
+      height: 100vh;
+      gap: 56px;
+      margin-left: 3.475rem;
+      margin-top: 4.475rem;
+      background-color: #FFF;
+      position: relative;
+    }
+    .bank-container::-webkit-scrollbar {
+      width: 0;
+      background: transparent;
+  }
+  
+    .bank-form {
+      overflow-y: auto;
+      overflow-x: hidden;
+      box-sizing: border-box;
+      width: 388px;
+      min-height: 100vh;
+      max-height: 100vh;
+      height: calc(100vh - 8.35rem);
+      gap: 40px;
+      margin-left: -1.8rem;
+    }
+
+    .form::-webkit-scrollbar {
+      width: 0;
+      background: transparent;
+  }
+  
+        .form-header {
+          display: flex;
+          justify-content: space-between;
+          margin-bottom: 20px;
+          width: 100vw;
+          padding-top: 10px;
+  
+          a {
+              font-size: 14px;
+              color: #000;
+              text-decoration: none;
+  
+              &.login-link {
+                  color: #000;
+                  font-size: 14px;
+                  font-family: Inter;
+                  font-size: 14px;
+                  font-weight: 400;
+                  line-height: 20px;
+  
+              }
+          }
+      }
+  
+    @media (max-width: 768px) {
+      .account-wrapper {  
+      display: flex;
+      width: 100%;
+      height: fit-content; 
+      }
+    
+      .login-image {
+        display: none;
+      }
+    
+      .login-container {
+        width: 100%;
+        max-height: fit-content;
+      }
+      .account-container {
+        max-width: 343px;
+        height: fit-content;
+        gap: 24px;
+        background-color: #FFF;
+        position: relative;
+      }
+  
+    .form-header {
+      display: flex;
+      justify-content: space-between;
+      margin: 2px;
+      width: 100%;
+      padding-top: -50px;
+  
+      a {
+          font-size: 14px;
+          color: #000;
+          text-decoration: none;
+  
+          &.login-link {
+              color: #000;
+              font-size: 14px;
+              margin-right: -1px;
+              font-family: Inter;
+              font-size: 14px;
+              font-weight: 400;
+              line-height: 20px;
+  
+          }
+      }
+  }
+  
+    }
+    
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    p {
+      color: #6c757d;
+      margin-bottom: 1rem;
+    }
+    
+    .sign-up-link {
+      text-align: center;
+      margin-top: 1rem;
+    
+      a {
+        color: #429875;
+        text-decoration: none;
+      }
+    }
+    
+    
+    .lat {
+      font-size: 10px;
+      color: #667085;
+      margin-top: 0;
+    }
+  .buttons {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+  .buttons .back {
+    width: 45%;
+    height: 44px;
+    padding: 10px 18px;
+    border-radius: 8px;
+    border: 1px solid #EAECF0;
+    background: #FFFFFF;
+    color: #344054;
+    text-align: center;
+  }
+  
+  .buttons .continue {
+    width: 50%;
+    height: 44px;
+    padding: 10px 18px;
+    color: #fff;
+    background-color: #36b37e;
+    border-radius: 8px;
+    border: 1px solid #EAECF0;
+    text-align: center;
+  }
