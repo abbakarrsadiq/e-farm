@@ -1,27 +1,27 @@
 import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
+import { Table, Button, Form, InputGroup } from 'react-bootstrap';
 import './farmer-account.scss';
 import ProgressSteps from '../steps/progressSteps';
-import formImage from './farmImage.png';
+import formImage from './cow.png';
 import Modal from '../stepFive/modal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCloudArrowUp, faEdit, faCheck, faTrashAlt, faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
+
+const validationSchema = Yup.object({
+  name: Yup.string().required('Farm Name is required'),
+  longitude: Yup.string(),
+  latitude: Yup.string(),
+  documents: Yup.array().of(Yup.string())
+});
 
 export const Farmer: React.FC = () => {
   const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
   const [files, setFiles] = useState<Array<{ name: string; size: string; progress: number; complete: boolean }>>([]);
   const [crops, setCrops] = useState<Array<{ id: number }>>([{ id: 1 }]);
-  const [farms, setFarms] = useState<Array<{ id: number; name: string; longitude: string; latitude: string; crops: string[]; documents: string[] }>>([
-    {
-      id: 1,
-      name: 'Buba Farm',
-      longitude: '8.0876 E',
-      latitude: '4.765 N',
-      crops: ["Millet"],
-      documents: ['Document1.pdf']
-    }
-  ]);
   const [formData, setFormData] = useState({
     name: '',
     longitude: '',
@@ -29,19 +29,49 @@ export const Farmer: React.FC = () => {
     crops: [] as string[],
     documents: [] as string[],
   });
+  const [farms, setFarms] = useState<Array<{ id: number; name: string; longitude: string; latitude: string; crops: string[]; documents: string[] }>>([
+    {
+      id: 1,
+      name: 'Buba Farm',
+      longitude: '8.0876 E',
+      latitude: '4.765 N',
+      crops: ["Millet"],
+      documents: ['Docs.pdf']
+    }
+  ]);
   const [currentFarmIndex, setCurrentFarmIndex] = useState(0);
   const carouselRef = useRef<HTMLDivElement>(null);
 
+  const formik = useFormik({
+    initialValues: {
+      name: '',
+      longitude: '',
+      latitude: '',
+      crops: [] as string[],
+      documents: [] as string[],
+    },
+    validationSchema,
+    onSubmit: (values) => {
+      addFarm(values);
+      setFormData({
+        name: '',
+        longitude: '',
+        latitude: '',
+        crops: [],
+        documents: [],
+      });
+      setShowModal(true);
+    },
+  });
+
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFiles = Array.from(event.target.files || []);
-
     const newFiles = selectedFiles.map(file => ({
       name: file.name,
       size: formatFileSize(file.size),
       progress: 0,
       complete: false
     }));
-
     setFiles(prevFiles => [...prevFiles, ...newFiles]);
 
     newFiles.forEach((_, index) => {
@@ -69,45 +99,6 @@ export const Farmer: React.FC = () => {
     else return `${(size / (1024 * 1024)).toFixed(2)} MB`;
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
-    // @ts-expect-error
-    const target = event.nativeEvent.submitter as HTMLButtonElement;
-    if (target.name === 'add-farm') {
-      addFarm();
-      setFormData({
-        name: '',
-        longitude: '',
-        latitude: '',
-        crops: [],
-        documents: [],
-      });
-      setShowModal(true);
-    } else if (target.name === 'back') {
-      navigate('/security');
-    }
-  };
-
-  const addCrop = () => {
-    setCrops(prevCrops => [...prevCrops, { id: prevCrops.length + 1 }]);
-  };
-
-  const addFarm = () => {
-    const newFarmId = farms.length + 1;
-    setFarms(prevFarms => [
-      ...prevFarms,
-      {
-        id: newFarmId,
-        name: formData.name,
-        longitude: formData.longitude,
-        latitude: formData.latitude,
-        crops: formData.crops,
-        documents: formData.documents
-      }
-    ]);
-  };
-
   const handleNext = () => {
     if (currentFarmIndex < farms.length - 1) {
       setCurrentFarmIndex(prevIndex => prevIndex + 1);
@@ -121,62 +112,51 @@ export const Farmer: React.FC = () => {
       carouselRef.current?.scrollBy({ left: -300, behavior: 'smooth' });
     }
   };
+
   const handleCloseModal = () => {
     setShowModal(false);
-    navigate('/login');
+    navigate('/');
   };
+
   const handleAddAnotherFarm = () => {
     setShowModal(false);
   };
+  const addCrop = () => {
+    setCrops(prevCrops => [...prevCrops, { id: prevCrops.length + 1 }]);
+  };
+  const addFarm = (values: typeof formik.values) => {
+    const newFarmId = farms.length + 1;
+    setFarms(prevFarms => [
+      ...prevFarms,
+      {
+        id: newFarmId,
+        name: values.name,
+        longitude: values.longitude,
+        latitude: values.latitude,
+        crops: values.crops,
+        documents: values.documents
+      }
+    ]);
+  };
+
   return (
-    <div className="account-creation-container">
-      <div className="image-section">
-        <img src={formImage} alt="Farm Warehouse" />
+    <div className="farmer-wrapper">
+      <div className="image-container">
+        <img src={formImage} alt="Farm Warehouse" className='image'/>
       </div>
-      <div className="form-wrapper">
         <ProgressSteps currentStep={4} totalSteps={4} />
+      <div className="form">
         <div className="form-section">
-          <div className="form-header">
-            <a href="/" className="back-home">Back home</a>
-            <a href="/login" className="login-link">Already have an account? Log in</a>
-          </div>
-          <form onSubmit={handleSubmit}>
+            <div style={{ width: '350px', display: 'flex', justifyContent: 'space-between', color: 'red' }}>
+              <a href="/" className="">Back home</a>
+              <a href="/login" className="">Already have an account? Log in</a>
+            </div>
+          <Form onSubmit={formik.handleSubmit}>
             <h2>Create Account</h2>
             <p>Farm Registration</p>
             <div>
               <div>
-
-                {/* <table className="farms-table" ref={carouselRef}>
-                  <tbody>
-                    {farms.map((farm) => (
-                      <>
-                      <tr key={farm.id} className="first-row">
-                        <td>Farm {farm.id}</td>
-                        <td></td>
-                        <td>
-                          <FontAwesomeIcon icon={faEdit} className="edit-icon" />
-                          <FontAwesomeIcon icon={faTrashAlt} className="delete-icon" />
-                        </td>
-                      </tr>
-                      <tr className="second-row">
-
-                      <td><p>FARM NAME</p>{farm.name}</td>
-                        <td><p>LONGTITUDE</p><span className='longtitude'>{farm.longitude}</span></td>
-                        <td><p>LATITUDE</p><span className='latitude'>{farm.latitude}</span></td>
-                      </tr>
-
-                      <tr className="third-row">
-                      <td><p>CROPS PRODUCED</p><span className='crop'>{farm.crops.join(', ')}</span></td>
-                      <td><p>DOCUMENTS</p><span className="docs">
-                        
-                  <FontAwesomeIcon icon={faCloudArrowUp} className="upload-icon" />
-                        </span></td>
-                      </tr>
-                      </>
-                    ))}
-                  </tbody>
-                </table> */}
-                <table className="farms-table" ref={carouselRef}>
+              <table className="farms-table" ref={carouselRef}>
                   <tbody>
                     {farms.length > 0 && (
                       <>
@@ -204,10 +184,10 @@ export const Farmer: React.FC = () => {
                   </tbody>
                 </table>
               </div>
-              <div className="carousel-controls">
-                <button className="carousel-button prev" onClick={handlePrev}>
+              <div className="carousel-controls d-flex m-5">
+                <Button variant="outline-secondary" className="carousel-button prev" onClick={handlePrev}>
                   <FontAwesomeIcon icon={faChevronLeft} />
-                </button>
+                </Button>
                 <div className="scroll-dots">
                   {farms.map((_, index) => (
                     <span
@@ -216,103 +196,137 @@ export const Farmer: React.FC = () => {
                     />
                   ))}
                 </div>
-                <button className="carousel-button next" onClick={handleNext}>
+                <Button variant="outline-secondary" className="carousel-button next" onClick={handleNext}>
                   <FontAwesomeIcon icon={faChevronRight} />
-                </button>
-              </div>
-
-            </div>
-
-
-
-            <div className="form-group">
-              <div>
-                <label>Farm Name*</label>
-                <input type="text" placeholder="Enter farm name" required />
+                </Button>
               </div>
             </div>
-            <div className="form-group">
-              <label>Farm Coordinate (Optional)</label>
-              <div className="form-group" style={{ display: "flex", gap: "10px", marginBottom: "1px" }}>
-                <div style={{ flex: 1 }}>
-                  <input type="text" placeholder="Enter Longitude" />
-                </div>
-                <div style={{ flex: 1 }}>
-                  <input type="text" placeholder="Enter Latitude" />
-                </div>
-              </div>
-              <p className='lat'>Ex: Longitude: 8.6375° E Latitude: 9.0820° N</p>
-            </div>
-            <h4>Crops cultivated and planting season</h4>
-            {crops.map((crop, index) => (
-              <div key={crop.id} className="farm-group" style={{ backgroundColor: '#F9FAFB', padding: '5px', margin: 0 }}>
-                <div className="crop-number">CROP {index + 1}</div>
-                <div className="form-group">
-                  <label>What crop do you cultivate on this farm?</label>
-                  <select className='select-site' required>
-                    <option value="">Rice</option>
-                    <option value="">Maize</option>
-                    <option value="">Millet</option>
-                    <option value="">Egusi</option>
-                  </select>
-                </div>
-                <div className="form-group" style={{ backgroundColor: '#F9FAFB', padding: '10px' }}>
-                  <div style={{ display: "flex", gap: "10px", margin: "0" }}>
-                    <div style={{ flex: 1 }}>
-                      <label>Start Month</label>
-                      <select className='select-site' required>
-                        <option value="">January</option>
-                        <option value="">February</option>
-                        <option value="">March</option>
-                        <option value="">April</option>
-                        <option value="">May</option>
-                        <option value="">June</option>
-                        <option value="">July</option>
-                        <option value="">August</option>
-                        <option value="">September</option>
-                        <option value="">October</option>
-                        <option value="">November</option>
-                        <option value="">December</option>
-                      </select>
-                    </div>
-                    <div style={{ flex: 1 }}>
-                      <label>End Month</label>
-                      <select className='select-site' required>
-                        <option value="">January</option>
-                        <option value="">February</option>
-                        <option value="">March</option>
-                        <option value="">April</option>
-                        <option value="">May</option>
-                        <option value="">June</option>
-                        <option value="">July</option>
-                        <option value="">August</option>
-                        <option value="">September</option>
-                        <option value="">October</option>
-                        <option value="">November</option>
-                        <option value="">December</option>
-                      </select>
-                    </div>
+
+            <Form.Group>
+              <Form.Label htmlFor="name">Farm Name*</Form.Label>
+              <Form.Control
+                id="name"
+                type="text"
+                placeholder="Enter farm name"
+                {...formik.getFieldProps('name')}
+                isInvalid={!!formik.errors.name && formik.touched.name}
+              />
+              <Form.Control.Feedback type="invalid">
+                {formik.errors.name}
+              </Form.Control.Feedback>
+            </Form.Group>
+             <Form.Group>
+              <Form.Label htmlFor="coordinate">Farm Coordinate (Optional)</Form.Label>
+              <div className="form-group">
+                <div className="coordinate-inputs">
+                  <div className="coordinate-item">
+                    <Form.Control
+                      id="longitude"
+                      type="text"
+                      placeholder="Enter Longitude"
+                      {...formik.getFieldProps('longitude')}
+                    />
+                    <p className='lat'>Ex: 8.0876° E</p>
+                  </div>
+                  <div className="coordinate-item">
+                    <Form.Control
+                      id="latitude"
+                      type="text"
+                      placeholder="Enter Latitude"
+                      {...formik.getFieldProps('latitude')}
+                    />
+                    <p className='lat'>4.7650° N</p>
                   </div>
                 </div>
               </div>
-            ))}
-            <button className='add-crop-button' type='button' style={{
-              backgroundColor: '#E7F5F1',
-              color: "#5EBAA2",
-              border: '1px solid #90D0BF',
-              width: "50%"
-            }} onClick={addCrop}>+ Add another crop</button>
+            </Form.Group>
 
-            <div className="form-group">
-              <label>Upload Farm documents</label>
+
+            <Form.Group>
+              <Form.Label>Crops cultivated and planting season</Form.Label>
+              {crops.map((crop, index) => (
+                <div key={crop.id} className="farm-group" style={{ backgroundColor: '#F9FAFB', padding: '5px', margin: 0 }}>
+                  <div className="crop-number">CROP {index + 1}</div>
+                  <Form.Group>
+                    <Form.Label>What crop do you cultivate on this farm?</Form.Label>
+                    <Form.Control
+                      as="select"
+                      className='select-site'
+                      {...formik.getFieldProps(`crops[${index}]`)}
+                    >
+                      <option value="">Rice</option>
+                      <option value="">Maize</option>
+                      <option value="">Millet</option>
+                      <option value="">Egusi</option>
+                    </Form.Control>
+                  </Form.Group>
+                  <div className="form-group" style={{ backgroundColor: '#F9FAFB', padding: '10px' }}>
+                    <div style={{ display: "flex", gap: "10px", margin: "0" }}>
+                      <div style={{ flex: 1 }}>
+                        <Form.Label>Start Month</Form.Label>
+                        <Form.Control as="select" className='select-site' required>
+                          <option value="">January</option>
+                          <option value="">February</option>
+                          <option value="">March</option>
+                          <option value="">April</option>
+                          <option value="">May</option>
+                          <option value="">June</option>
+                          <option value="">July</option>
+                          <option value="">August</option>
+                          <option value="">September</option>
+                          <option value="">October</option>
+                          <option value="">November</option>
+                          <option value="">December</option>
+                        </Form.Control>
+                      </div>
+                      <div style={{ flex: 1 }}>
+                        <Form.Label>End Month</Form.Label>
+                        <Form.Control as="select" className='select-site' required>
+                          <option value="">January</option>
+                          <option value="">February</option>
+                          <option value="">March</option>
+                          <option value="">April</option>
+                          <option value="">May</option>
+                          <option value="">June</option>
+                          <option value="">July</option>
+                          <option value="">August</option>
+                          <option value="">September</option>
+                          <option value="">October</option>
+                          <option value="">November</option>
+                          <option value="">December</option>
+                        </Form.Control>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+              <Button
+                variant="success"
+                type="button"
+                style={{
+                  backgroundColor: '#E7F5F1',
+                  color: "#5EBAA2",
+                  border: '1px solid #90D0BF',
+                  width: "60%",
+                  marginBottom: "10px",
+                  marginLeft: "auto",
+                }}
+                onClick={addCrop}
+              >
+                + Add another crop
+              </Button>
+            </Form.Group>
+
+            <Form.Group>
+              <Form.Label>Upload Farm documents</Form.Label>
               <div className="file-upload-wrapper">
-                <input
+                <Form.Control
                   type="file"
                   id="file-upload"
                   className="file-upload-input"
                   onChange={handleFileUpload}
                   multiple
-                  style={{ display: 'none', background: "red" }}
+                  style={{ display: 'none' }}
                 />
                 <label htmlFor="file-upload" className="file-upload-label">
                   <FontAwesomeIcon icon={faCloudArrowUp} className="upload-icon" />
@@ -341,17 +355,18 @@ export const Farmer: React.FC = () => {
                   ))}
                 </div>
               )}
-            </div>
+            </Form.Group>
+
             <div className="buttons">
-              <button type="submit" name="back" className="back" onClick={() => navigate("/security")}>
+              <Button variant="secondary" type="button" className="back" onClick={() => navigate("/security")}>
                 Back
-              </button>
-              <button type="submit" name="add-farm" className="continue" onClick={addFarm}>
+              </Button>
+              <Button type="submit" variant="primary" className="continue">
                 Add Farm
-              </button>
+              </Button>
               <Modal show={showModal} onClose={handleCloseModal} onAddAnotherFarm={handleAddAnotherFarm} />
             </div>
-          </form>
+          </Form>
         </div>
       </div>
     </div>

@@ -1,0 +1,391 @@
+body {
+    overflow: hidden;
+  }
+  
+  .farmer-wrapper {
+      display: flex;
+      width: 100vw;
+      height: 100vh; 
+    }
+    
+    .image-container {
+      flex: 1;
+      max-width: 700px;
+      height: 864px;
+      display: block;
+      background: #F5F0EC;
+      justify-content: center;
+      text-align: center;
+      padding-top: 50px;
+    }
+  
+    .image {
+      width: 556px;
+      height: 720px;
+      border-radius: 30px;
+    }
+    
+    .farmer-container {
+      flex: 1;
+      max-width: 484px;
+      height: 100vh;
+      gap: 56px;
+      margin-left: 3.875rem;
+      margin-top: 4.475rem;
+      background-color: #FFF;
+      position: relative;
+    }
+    .security-container::-webkit-scrollbar {
+      width: 0;
+      background: transparent;
+  }
+  
+    .form {
+      overflow-y: auto;
+      overflow-x: hidden;
+      box-sizing: border-box;
+      width: 100vw;
+      min-height: 100vh;
+      max-height: 100vh;
+      height: calc(100vh - 8.35rem);
+      gap: 40px;
+      margin-left: 20px;
+      padding-left: 20px;
+      padding-top: 20px;
+    }
+    .form::-webkit-scrollbar {
+      width: 0;
+      background: transparent;
+  }
+  
+
+    @media (max-width: 768px) {
+      .farmer-wrapper {  
+      display: flex;
+      width: 350px;
+      height: 554px;
+      margin: 10px;
+      }
+    
+      .image-container {
+        display: none;
+      }
+    .form {
+        width: 343px;
+    }
+      .farmer-container {
+        max-width: 343px;
+        height: fit-content;
+        gap: 24px;
+        background-color: #FFF;
+        position: relative;
+      }
+  
+
+    }
+    
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    p {
+      color: #6c757d;
+      margin-bottom: 1rem;
+    }
+    
+    .sign-up-link {
+      text-align: center;
+      margin-top: 1rem;
+    
+      a {
+        color: #429875;
+        text-decoration: none;
+      }
+      .buttons {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        margin-bottom: 1rem;
+      }
+    }
+    
+    
+    .lat {
+      font-size: 10px;
+      color: #667085;
+      margin-top: 0;
+    }
+
+  .buttons {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+  .buttons .back {
+    width: 45%;
+    height: 44px;
+    padding: 10px 18px;
+    border-radius: 8px;
+    border: 1px solid #EAECF0;
+    background: #FFFFFF;
+    color: #344054;
+    text-align: center;
+  }
+  
+  .buttons .continue {
+    width: 50%;
+    height: 44px;
+    padding: 10px 18px;
+    color: #fff;
+    background-color: #36b37e;
+    border-radius: 8px;
+    border: 1px solid #EAECF0;
+    text-align: center;
+  }
+
+
+.lat {
+    font-size: 10px;
+    color: #667085;
+    margin-top: 0;
+  }
+  
+  .file-upload-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+  }
+  
+  .file-upload-label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    background-color: #ffffff;
+    padding: 10px;
+    border: 2px solid #eaecf0;
+    border-radius: 8px;
+    text-align: center;
+  }
+  
+  .upload-icon {
+    font-size: 24px;
+    color: #000;
+  }
+  
+  .upload-placeholder {
+    margin-top: 10px;
+    height: 126px;
+  }
+  
+  .upload-progress-wrapper {
+    width: 100%;
+    margin-top: 10px;
+  }
+  
+  .upload-details {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+  }
+  
+  .file-name, .file-size {
+    margin-bottom: 5px;
+    text-align: left;
+  }
+  
+  .upload-progress {
+    width: 100%;
+    background-color: #ddd;
+    border-radius: 4px;
+    height: 8px;
+    position: relative;
+  }
+  
+  .upload-progress-bar {
+    height: 100%;
+    border-radius: 4px;
+    background-color: #429875;
+    position: relative;
+  }
+  
+  .check-icon {
+    position: absolute;
+    right: 0;
+    top: -20px;
+    color: #429875;
+    font-size: 18px;
+  }
+  
+  .farms-table {
+    width: 100%;
+    height: 188px;
+    border-collapse: collapse;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    background: #FEFDF9;
+  }
+  
+  .farms-table, .farms-table td {
+    border: none;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  .farms-table .active {
+    background-color: none;
+  }
+  
+  .edit-icon, .delete-icon {
+    cursor: pointer;
+    margin: 0 5px;
+  }
+  .first-row {
+    width: 332px;
+    height: 24px;
+    border: 1px solid #FCDF89;
+  }
+  .second-row {
+    width: 332px;
+    height: 42px;
+    font-weight: 600;
+    line-height: 20px;
+    border: 1px solid #FCDF89;
+  }
+  .second-row p {
+    color: #667085;
+    font-size: 10px;
+    padding: 0;
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  }
+  .second-row .longtitude {
+    color: #429556;
+    background: #F6FEF9;
+    border: 1px solid;
+    border-radius: 4px;
+    width: 90px;
+    height: 22px;
+    font-size: 12px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  }
+  .second-row .latitude {
+    color: #1570EF;
+    background: #F5FAFE;
+    border: 1px solid;
+    border-radius: 4px;
+    font-size: 12px;
+    width: 77px;
+    height: 22px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  }
+  
+  .third-row {
+    width: 332px;
+    height: 48px;
+    font-weight: 600;
+    line-height: 20px;
+    border: 1px solid #FCDF89;
+  }
+  .third-row td p {
+    color: #667085;
+    font-size: 5px;
+    line-height: 1;
+    letter-spacing: -0.5px;
+    padding: 0;
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  }
+  
+  .third-row .crop {
+    color: #4E1D0B;
+    background: #FEDF89;
+    border: 1px solid #FCDF89;
+    border-radius: 4px;
+    width: 110%;
+    height: 22px;
+    margin: 1px;
+    font-size: 12px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  }
+  .second-row .latitude {
+    color: #1570EF;
+    background: #F5FAFE;
+    border: 1px solid;
+    border-radius: 4px;
+    font-size: 12px;
+    width: 77px;
+    height: 22px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  }
+  
+  .carousel-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 16px;
+  }
+  
+  .carousel-button {
+    background: #fff;
+    width: 5%;
+    border: none;
+    cursor: pointer;
+    font-size: 10px;
+    color: #000;
+    margin-top: 0;
+    padding-top: 0;
+  }
+  
+  .scroll-dots {
+    display: flex;
+    gap: 1px;
+  }
+  
+  .scroll-dots span {
+    display: block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: #ccc;
+  }
+  
+  .scroll-dots .active {
+    background-color: #333;
+  }
+  
+  .farm-header {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .edit-icon, .delete-icon {
+    margin-left: 8px;
+  }
+  
+  .form-group {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 1px;
+  }
+  
+  .coordinate-inputs {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+  }
+  
+  .coordinate-item {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+  
+  .lat {
+    margin-top: 5px;
+    color: #6c757d;
+  }
+  

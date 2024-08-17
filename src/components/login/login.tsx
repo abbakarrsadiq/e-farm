@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFingerprint, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import { faFingerprint, faEye, faEyeSlash, faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { Form, Button } from 'react-bootstrap';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
@@ -24,7 +24,7 @@ const validationSchema = Yup.object({
 });
 
 const Login: React.FC = () => {
-  const API_BASE_URL = "https://api.yourdomain.com";
+  const API_BASE_URL = "https://api.bgn.com";
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
@@ -53,11 +53,11 @@ const Login: React.FC = () => {
         <img src={loginImage} alt="Farm Warehouse" />
       </div>
       <div className="login-container">
-        <a href="/" className="back-home"> Back home</a>
+      <div className="back-arrow">
+        <FontAwesomeIcon icon={faChevronLeft}/> Back home</div>
+        <Form className="form" onSubmit={formik.handleSubmit}>
         <h1>Welcome back!</h1>
         <p>Welcome back! Please enter your details.</p>
-
-        <Form className="form" onSubmit={formik.handleSubmit}>
           <Form.Group controlId="credential">
             <Form.Label>Email address / Phone number</Form.Label>
             <Form.Control

@@ -1,5 +1,6 @@
 import React from 'react';
 import Logo from "./modalLogo.png"
+import './modal.scss'
 
 interface ModalProps {
   show: boolean;
