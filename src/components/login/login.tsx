@@ -35,12 +35,12 @@ const Login: React.FC = () => {
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
+      navigate('/verify');
       try {
         const response = await axios.post(
           `${API_BASE_URL}/users/login`,
           values
         );
-        navigate('/verify');
       } catch (error) {
         console.error('Error submitting form:', error);
       }
