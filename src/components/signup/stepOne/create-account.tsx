@@ -1,9 +1,9 @@
 import React from 'react';
-import { Form, Row, Col, Button, InputGroup } from 'react-bootstrap';
+import { Form, Row, Col, InputGroup } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
-import { FaUser } from 'react-icons/fa'; // Import user thumbnail icon
+import { FaUser } from 'react-icons/fa';
 import './account.scss';
 import ProgressSteps from '../steps/progressSteps';
 import formImage from './account.png';
@@ -29,7 +29,7 @@ const validationSchema = Yup.object({
 
 export const Account: React.FC = () => {
   const navigate = useNavigate();
-  
+
   const formik = useFormik({
     initialValues: {
       firstName: '',
@@ -56,28 +56,26 @@ export const Account: React.FC = () => {
   return (
     <div className="account-wrapper">
       <div className="image-container">
-        <img src={formImage} alt="Farm Warehouse" className='image'/>
+        <img src={formImage} alt="Farm Warehouse" className="image" />
       </div>
       <ProgressSteps currentStep={2} totalSteps={4} />
-      <div className="form">
-        <div className="form-header">
-          <a onClick={() => navigate('/')}>Back home</a>
-          <a onClick={() => navigate('/')}>Already have an account? Log in</a>
-        </div>
+
+      <div>
         <div className="account-container">
-          <Form onSubmit={formik.handleSubmit}>
+          <Form onSubmit={formik.handleSubmit} className="account-form">
             <h2>Create Account</h2>
             <p>Personal Information</p>
 
-            <Form.Group className="form-group">
-              <Row>
+            {/* First Name and Last Name */}
+            <Form.Group className="mb-3">
+              <Row className="d-flex justify-content-between" style={{ width: '388px', height: '72px' }}>
                 <Col>
                   <Form.Label>First Name*</Form.Label>
                   <Form.Control
                     type="text"
                     placeholder="Enter first name"
                     {...formik.getFieldProps('firstName')}
-                   isInvalid={Boolean(formik.touched.firstName && formik.errors.firstName)}
+                    isInvalid={Boolean(formik.touched.firstName && formik.errors.firstName)}
                   />
                   <Form.Control.Feedback type="invalid">
                     {formik.errors.firstName}
@@ -89,7 +87,7 @@ export const Account: React.FC = () => {
                     type="text"
                     placeholder="Enter last name"
                     {...formik.getFieldProps('lastName')}
-                  isInvalid={Boolean(formik.touched.lastName && formik.errors.lastName)}
+                    isInvalid={Boolean(formik.touched.lastName && formik.errors.lastName)}
                   />
                   <Form.Control.Feedback type="invalid">
                     {formik.errors.lastName}
@@ -98,49 +96,15 @@ export const Account: React.FC = () => {
               </Row>
             </Form.Group>
 
-            <Form.Group className="form-group">
-              <Form.Label>Phone number*</Form.Label>
-              <div className="form-input d-flex align-items-center">
-                <div className="country-code-container">
-                  <Form.Control as="select" className="country-code">
-                    <option value="+234" className='mb-0 pb-0'>+234</option>
-                  </Form.Control>
-                  <div className="nigeria" />
-                </div>
-                <Form.Control
-                  type="tel"
-                  placeholder="000 0000 000"
-                  {...formik.getFieldProps('phoneNumber')}
-                  isInvalid={Boolean(formik.touched.phoneNumber && formik.errors.phoneNumber)}
-                />
-                <Form.Control.Feedback type="invalid">
-                  {formik.errors.phoneNumber}
-                </Form.Control.Feedback>
-              </div>
-            </Form.Group>
-
-            <Form.Group className="form-group">
-              <Form.Label>Email address (Optional)</Form.Label>
-              <Form.Control
-                type="email"
-                placeholder="Enter email address"
-                {...formik.getFieldProps('email')}
-is             Invalid={Boolean(formik.touched.email && formik.errors.email)}
-              />
-              <Form.Control.Feedback type="invalid">
-                {formik.errors.email}
-              </Form.Control.Feedback>
-            </Form.Group>
-
-            <Row className="form-row">
-              <Col>
-                <Form.Group className="form-group mb-0">
-                  <Form.Label htmlFor="age">Age*</Form.Label>
+            {/* Age and Gender */}
+            <Form.Group className="mb-3">
+              <Row className="d-flex justify-content-between" style={{ width: '388px', height: '70px', gap: '24px' }}>
+                <Col>
+                  <Form.Label>Age*</Form.Label>
                   <Form.Control
                     as="select"
-                    id="age"
                     {...formik.getFieldProps('age')}
-                   isInvalid={Boolean(formik.touched.age && formik.errors.age)}
+                    isInvalid={Boolean(formik.touched.age && formik.errors.age)}
                   >
                     <option value="">Select age</option>
                     <option value="under-18">Under 18</option>
@@ -152,10 +116,8 @@ is             Invalid={Boolean(formik.touched.email && formik.errors.email)}
                   <Form.Control.Feedback type="invalid">
                     {formik.errors.age}
                   </Form.Control.Feedback>
-                </Form.Group>
-              </Col>
-              <Col>
-                <Form.Group className="form-group">
+                </Col>
+                <Col>
                   <Form.Label>Choose Gender*</Form.Label>
                   <div className="gender-options">
                     <Form.Check
@@ -176,112 +138,114 @@ is             Invalid={Boolean(formik.touched.email && formik.errors.email)}
                       {formik.errors.gender}
                     </Form.Control.Feedback>
                   </div>
-                </Form.Group>
-              </Col>
-            </Row>
+                </Col>
+              </Row>
+            </Form.Group>
 
-            <Form.Group className="form-group">
-              <Form.Label>Residential address*</Form.Label>
+            <Form.Group className="" style={{ width: '388px', height: '70px', gap: '6px', marginTop: '10px', marginBottom: '10px' }}>
+              <Form.Label>Residential Address*</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="Ex: No 21 Agaro road, Abeokuta."
-                {...formik.getFieldProps('address')}
-                isInvalid={Boolean(formik.touched.address && formik.errors.address)}
+                placeholder="No. 20, Khartoum St, Wuse"
+                {...formik.getFieldProps('confirmPassword')}
+                isInvalid={Boolean(formik.touched.address && formik.errors.confirmPassword)}
               />
               <Form.Control.Feedback type="invalid">
                 {formik.errors.address}
               </Form.Control.Feedback>
             </Form.Group>
 
-            <Form.Group className="form-group">
+            <Form.Group className="" style={{ width: '388px', height: '70px', gap: '6px', marginTop: '10px', marginBottom: '10px' }}>
               <Form.Label>Site*</Form.Label>
               <Form.Control
                 as="select"
-                className="select-site"
-                {...formik.getFieldProps('site')}
-                isInvalid={formik.touched.site && formik.errors.site}
+                {...formik.getFieldProps('age')}
+                isInvalid={Boolean(formik.touched.age && formik.errors.age)}
               >
-                <option value="">Select Site</option>
-                <option value="private">Private</option>
-                <option value="public">Public</option>
-                <option value="mix-plots">Mix plots</option>
+                <option value="wuse">Wuse</option>
+                <option value="under-18">Garki</option>
+                <option value="18-25">Apo</option>
+                <option value="26-35">Gwarinpa</option>
+                <option value="36-45">Jabi</option>
+                <option value="senior">Maitama</option>
               </Form.Control>
               <Form.Control.Feedback type="invalid">
                 {formik.errors.site}
               </Form.Control.Feedback>
             </Form.Group>
 
-            <Form.Group className="form-group">
+            <Form.Group className="" style={{ width: '388px', height: '70px', gap: '6px', marginTop: '10px', marginBottom: '10px' }}>
               <Form.Label>ID Type*</Form.Label>
               <Form.Control
                 as="select"
-                className="select-site"
-                {...formik.getFieldProps('idType')}
-                isInvalid={formik.touched.idType && formik.errors.idType}
+                {...formik.getFieldProps('age')}
+                isInvalid={Boolean(formik.touched.age && formik.errors.age)}
               >
-                <option value="">Select ID Type</option>
-                <option value="passport">International Passport</option>
-                <option value="national-id">National ID</option>
-                <option value="voters-card">Voters Card</option>
-                <option value="driving-license">Driving License</option>
+                <option value="passport">Int'l Passport</option>
+                <option value="nimc">National ID</option>
+                <option value="voter">Voter's Card</option>
+                <option value="driving">Driving License</option>
+                <option value="student">Studen ID</option>
               </Form.Control>
               <Form.Control.Feedback type="invalid">
                 {formik.errors.idType}
               </Form.Control.Feedback>
             </Form.Group>
 
-            <Form.Group className="form-group">
+
+            <Form.Group className="" style={{ width: '388px', height: '70px', gap: '6px', marginTop: '10px', marginBottom: '10px' }}>
               <Form.Label>ID Number*</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="Enter your ID number"
+                placeholder="Enter ID Number"
                 {...formik.getFieldProps('idNumber')}
-                isInvalid={formik.touched.idNumber && formik.errors.idNumber}
+                isInvalid={Boolean(formik.touched.idNumber && formik.errors.idNumber)}
               />
               <Form.Control.Feedback type="invalid">
                 {formik.errors.idNumber}
               </Form.Control.Feedback>
             </Form.Group>
 
-            <Form.Group className="form-group">
-            <Form.Label>Upload ID document</Form.Label>
+            {/* Upload ID Document */}
+            <Form.Group className="mb-3" style={{ width: '388px', height: '84px' }}>
+              <Form.Label>Upload ID document</Form.Label>
               <Form.Control
                 type="file"
                 onChange={(event) => formik.setFieldValue('idDocument', event.currentTarget.files?.[0])}
               />
             </Form.Group>
 
-            <Form.Group className="form-group">
+            <Form.Group className="" style={{ width: '388px', height: '66px', marginTop: '1px', marginBottom: '10px' }}>
               <Form.Label>Create Password</Form.Label>
               <Form.Control
                 type="password"
                 placeholder="********"
                 {...formik.getFieldProps('password')}
-                isInvalid={formik.touched.password && formik.errors.password}
+                isInvalid={Boolean(formik.touched.password && formik.errors.password)}
               />
               <Form.Control.Feedback type="invalid">
                 {formik.errors.password}
               </Form.Control.Feedback>
             </Form.Group>
 
-            <Form.Group className="form-group">
+            <Form.Group className="" style={{ width: '388px', height: '66px', marginTop: '10px', marginBottom: '10px' }}>
               <Form.Label>Confirm password</Form.Label>
               <Form.Control
                 type="password"
                 placeholder="********"
                 {...formik.getFieldProps('confirmPassword')}
-                isInvalid={formik.touched.confirmPassword && formik.errors.confirmPassword}
+                isInvalid={Boolean(formik.touched.confirmPassword && formik.errors.confirmPassword)}
               />
               <Form.Control.Feedback type="invalid">
                 {formik.errors.confirmPassword}
               </Form.Control.Feedback>
             </Form.Group>
 
-            <Form.Group className="form-group">
+            <Form.Group className="mb-3" style={{ width: '388px', height: '80px', marginBottom: '10px' }}>
               <Form.Label>Upload Profile picture (Optional)</Form.Label>
               <InputGroup>
                 <InputGroup.Text>
-                  <FaUser /> {/* User thumbnail icon */}
+                  <FaUser />
                 </InputGroup.Text>
                 <Form.Control
                   type="file"
@@ -290,10 +254,10 @@ is             Invalid={Boolean(formik.touched.email && formik.errors.email)}
               </InputGroup>
             </Form.Group>
             <div className="buttons">
-              <button type="submit" name="back" className="back">
+              <button type="button" className="back" onClick={() => navigate('/previous-step')}>
                 Back
               </button>
-              <button type="submit" name="continue" className="continue">
+              <button type="submit" className="continue">
                 Continue
               </button>
             </div>
@@ -305,4 +269,3 @@ is             Invalid={Boolean(formik.touched.email && formik.errors.email)}
 };
 
 export default Account;
-

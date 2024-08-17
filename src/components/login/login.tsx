@@ -55,7 +55,7 @@ const Login: React.FC = () => {
       <div className="login-container">
       <div className="back-arrow">
         <FontAwesomeIcon icon={faChevronLeft}/> Back home</div>
-        <Form className="form" onSubmit={formik.handleSubmit}>
+        <Form className="login-form" onSubmit={formik.handleSubmit}>
         <h1>Welcome back!</h1>
         <p>Welcome back! Please enter your details.</p>
           <Form.Group controlId="credential">
