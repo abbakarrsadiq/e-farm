@@ -254,10 +254,10 @@ export const Account: React.FC = () => {
               </InputGroup>
             </Form.Group>
             <div className="buttons">
-              <button type="button" className="back" onClick={() => navigate('/previous-step')}>
+              <button type="button" className="back" onClick={() => navigate('/')}>
                 Back
               </button>
-              <button type="submit" className="continue">
+              <button type="submit" className="continue" onClick={() => navigate('/bank')}>
                 Continue
               </button>
             </div>
