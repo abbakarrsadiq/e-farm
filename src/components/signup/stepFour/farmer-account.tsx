@@ -8,7 +8,7 @@ import ProgressSteps from '../steps/progressSteps';
 import formImage from './cow.png';
 import Modal from '../stepFive/modal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCloudArrowUp, faCheck } from '@fortawesome/free-solid-svg-icons';
+import { faCloudArrowUp, faCheck, faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 
 const validationSchema = Yup.object({
   name: Yup.string().required('Farm Name is required'),
@@ -22,7 +22,7 @@ export const Farmer: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
   const [files, setFiles] = useState<Array<{ name: string; size: string; progress: number; complete: boolean }>>([]);
   const [crops, setCrops] = useState<Array<{ id: number }>>([{ id: 1 }]);
-  const [setFormData] = useState({
+  const [formData, setFormData] = useState({
     name: '',
     longitude: '',
     latitude: '',
@@ -51,7 +51,6 @@ export const Farmer: React.FC = () => {
     validationSchema,
     onSubmit: (values) => {
       addFarm(values);
-      // @ts-expect-error
       setFormData({
         name: '',
         longitude: '',
@@ -102,10 +101,25 @@ export const Farmer: React.FC = () => {
   const handleCloseModal = () => {
     setShowModal(false);
     navigate('/');
+    setFormData({
+      name: '',
+      longitude: '',
+      latitude: '',
+      crops: [],
+      documents: [],
+    });
   };
 
   const handleAddAnotherFarm = () => {
     setShowModal(false);
+    navigate('/farmer');
+    setFormData({
+      name: '',
+      longitude: '',
+      latitude: '',
+      crops: [],
+      documents: [],
+    });
   };
   // @ts-expect-error
   const addCrop = (values) => {
@@ -134,6 +148,8 @@ export const Farmer: React.FC = () => {
         <ProgressSteps currentStep={4} totalSteps={4} />
       <div className="farmer-container">
         <div className="farmer-form">
+      <div id="farmer-back">
+         <div onClick={() => navigate("/")}><FontAwesomeIcon icon={faChevronLeft}/>  Back home</div> <div onClick={() => navigate("/")}>Login</div></div>
           <Form onSubmit={formik.handleSubmit}>
             <h2>Create Account</h2>
             <p>Farm Registration</p>

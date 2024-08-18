@@ -62,6 +62,13 @@ body {
   background: transparent;
 }
 
+.farmer-back {
+  font-size: 14px;
+  color: #667085;
+  margin-left: -8.8rem;
+  margin-top: -8rem;
+  background: red;
+}
 
 @media (max-width: 768px) {
   .farmer-wrapper {
@@ -231,4 +238,13 @@ p {
   border-radius: 4px;
   background-color: #429875;
   position: relative;
+}
+#farmer-back {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  color: #667085;
+  width: 100%;
+  margin-left: 0;
+  margin-bottom: 15px;
 }
