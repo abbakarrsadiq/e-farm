@@ -146,7 +146,7 @@ export const Account: React.FC = () => {
               <Form.Control
                 type="text"
                 placeholder="No. 20, Khartoum St, Wuse"
-                {...formik.getFieldProps('confirmPassword')}
+                {...formik.getFieldProps('address')}
                 isInvalid={Boolean(formik.touched.address && formik.errors.confirmPassword)}
               />
               <Form.Control.Feedback type="invalid">
@@ -162,11 +162,11 @@ export const Account: React.FC = () => {
                 isInvalid={Boolean(formik.touched.age && formik.errors.age)}
               >
                 <option value="wuse">Wuse</option>
-                <option value="under-18">Garki</option>
-                <option value="18-25">Apo</option>
-                <option value="26-35">Gwarinpa</option>
-                <option value="36-45">Jabi</option>
-                <option value="senior">Maitama</option>
+                <option value="garki">Garki</option>
+                <option value="apo">Apo</option>
+                <option value="gwarinpa">Gwarinpa</option>
+                <option value="jabi">Jabi</option>
+                <option value="maitama">Maitama</option>
               </Form.Control>
               <Form.Control.Feedback type="invalid">
                 {formik.errors.site}
@@ -177,7 +177,7 @@ export const Account: React.FC = () => {
               <Form.Label>ID Type*</Form.Label>
               <Form.Control
                 as="select"
-                {...formik.getFieldProps('age')}
+                {...formik.getFieldProps('idType')}
                 isInvalid={Boolean(formik.touched.age && formik.errors.age)}
               >
                 <option value="passport">Int'l Passport</option>
