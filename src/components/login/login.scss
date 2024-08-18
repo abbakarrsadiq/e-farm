@@ -64,7 +64,7 @@ p {
   width: 100%;
 }
 
-#password-input {
+.password-input {
   width: 83%;
   padding-right: 2.5rem;
   transition: width 0.3s ease;
@@ -147,7 +147,7 @@ p {
   margin-left: -8.8rem;
   margin-top: -8rem;
 }
-#signup {
+.signup {
   font-size: 14px;
   color: #667085;
   margin-top: 10px;
@@ -190,4 +190,8 @@ p {
     margin-left: 5px;
     top: -5rem;
   }
+}
+.error-notification {
+  color: red;
+  margin-bottom: 1rem;
 }

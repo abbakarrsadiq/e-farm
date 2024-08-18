@@ -16,17 +16,13 @@ const validationSchema = Yup.object({
     .email('Must be a valid email address'),
   password: Yup.string()
     .required('Password is required')
-    .min(8, 'Password must be at least 8 characters')
-    .matches(/[A-Z]/, 'Password must have at least one uppercase letter')
-    .matches(/[a-z]/, 'Password must have at least one lowercase letter')
-    .matches(/\d/, 'Password must have at least one number')
-    .matches(/[@$!%*?&#]/, 'Password must have at least one special character'),
 });
 
 const Login: React.FC = () => {
-  const API_BASE_URL = "https://api.bgn.com";
+  const API_BASE_URL = "https://www.dev.farmwarehouse.ng/api"
   const [showPassword, setShowPassword] = useState(false);
-  const [success, setSuccess] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
   const navigate = useNavigate();
 
   const formik = useFormik({
@@ -36,18 +32,27 @@ const Login: React.FC = () => {
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
-      if (success) navigate('/verify');
+      console.log("Form submitted!", values);
+      setErrorMessage(null);
       try {
         const response = await axios.post(
           `${API_BASE_URL}/users/login`,
           values
         );
-        response ? setSuccess(true) : setSuccess(false);
+        console.log("LOGIN RESPONSE", response);
+        if (response.status === 200) {
+          navigate('/account');
+        }
       } catch (error) {
-        console.error('Error submitting form:', error);
+        if (axios.isAxiosError(error) && error.response?.status === 401) {
+          setErrorMessage('Invalid login credentials. Try again.');
+        } else {
+          console.error('Error submitting form:', error);
+        }
       }
     },
   });
+  
 
   return (
     <div className="login-wrapper">
@@ -60,6 +65,12 @@ const Login: React.FC = () => {
         <Form className="login-form" onSubmit={formik.handleSubmit}>
         <h1>Welcome back!</h1>
         <p>Welcome back! Please enter your details.</p>
+        {errorMessage && (
+            <div className="error-notification">
+              {errorMessage} or{' '}
+              <a onClick={() => navigate('/account')} className="signup-link">Sign up</a>
+            </div>
+          )}
           <Form.Group controlId="credential">
             <Form.Label>Email address / Phone number</Form.Label>
             <Form.Control
@@ -90,7 +101,7 @@ const Login: React.FC = () => {
                 onBlur={formik.handleBlur}
                 value={formik.values.password}
                 isInvalid={formik.touched.password && !!formik.errors.password}
-                id="password-input"
+                className="password-input"
               />
               <FontAwesomeIcon
                 icon={showPassword ? faEyeSlash : faEye}
@@ -116,7 +127,7 @@ const Login: React.FC = () => {
           <Button type="submit" className="btn-login">
             Login
           </Button>
-          <div id="signup">
+          <div className="signup">
           Don’t have an account? <a onClick={() => navigate('/account')} className='signup-link'>Sign up</a>
         </div>
         </Form>
