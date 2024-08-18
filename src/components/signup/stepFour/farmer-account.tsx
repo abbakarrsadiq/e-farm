@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
@@ -22,7 +22,7 @@ export const Farmer: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
   const [files, setFiles] = useState<Array<{ name: string; size: string; progress: number; complete: boolean }>>([]);
   const [crops, setCrops] = useState<Array<{ id: number }>>([{ id: 1 }]);
-  const [formData, setFormData] = useState({
+  const [setFormData] = useState({
     name: '',
     longitude: '',
     latitude: '',
@@ -39,8 +39,6 @@ export const Farmer: React.FC = () => {
       documents: ['Docs.pdf']
     }
   ]);
-  const [currentFarmIndex, setCurrentFarmIndex] = useState(0);
-  const carouselRef = useRef<HTMLDivElement>(null);
 
   const formik = useFormik({
     initialValues: {
@@ -53,6 +51,7 @@ export const Farmer: React.FC = () => {
     validationSchema,
     onSubmit: (values) => {
       addFarm(values);
+      // @ts-expect-error
       setFormData({
         name: '',
         longitude: '',
@@ -108,7 +107,8 @@ export const Farmer: React.FC = () => {
   const handleAddAnotherFarm = () => {
     setShowModal(false);
   };
-  const addCrop = () => {
+  // @ts-expect-error
+  const addCrop = (values) => {
     setCrops(prevCrops => [...prevCrops, { id: prevCrops.length + 1 }]);
   };
   const addFarm = (values: typeof formik.values) => {
