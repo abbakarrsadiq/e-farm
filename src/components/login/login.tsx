@@ -26,6 +26,7 @@ const validationSchema = Yup.object({
 const Login: React.FC = () => {
   const API_BASE_URL = "https://api.bgn.com";
   const [showPassword, setShowPassword] = useState(false);
+  const [success, setSuccess] = useState(false);
   const navigate = useNavigate();
 
   const formik = useFormik({
@@ -35,12 +36,13 @@ const Login: React.FC = () => {
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
-      navigate('/verify');
+      if (success) navigate('/verify');
       try {
         const response = await axios.post(
           `${API_BASE_URL}/users/login`,
           values
         );
+        response ? setSuccess(true) : setSuccess(false);
       } catch (error) {
         console.error('Error submitting form:', error);
       }

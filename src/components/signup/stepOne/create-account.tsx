@@ -48,7 +48,7 @@ export const Account: React.FC = () => {
       profilePicture: null,
     },
     validationSchema,
-    onSubmit: (values) => {
+    onSubmit: () => {
       navigate('/bank');
     },
   });
@@ -208,7 +208,7 @@ export const Account: React.FC = () => {
               <Form.Label>Upload ID document</Form.Label>
               <Form.Control
                 type="file"
-                onChange={(event) => formik.setFieldValue('idDocument', event.currentTarget.files?.[0])}
+onChange={(event: React.ChangeEvent<HTMLInputElement>) => formik.setFieldValue('idDocument', event.currentTarget.files?.[0])}
               />
             </Form.Group>
 
@@ -246,7 +246,7 @@ export const Account: React.FC = () => {
                 </InputGroup.Text>
                 <Form.Control
                   type="file"
-                  onChange={(event) => formik.setFieldValue('profilePicture', event.currentTarget.files?.[0])}
+onChange={(event: React.ChangeEvent<HTMLInputElement>) => formik.setFieldValue('profilePicture', event.currentTarget.files?.[0])}
                 />
               </InputGroup>
             </Form.Group>

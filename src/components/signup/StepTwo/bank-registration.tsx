@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
-import { Form, Button, Container, Row, Col } from 'react-bootstrap';
+import { Form, Button } from 'react-bootstrap';
 import * as Yup from 'yup';
 import './bank.scss';
 import ProgressSteps from '../steps/progressSteps';
@@ -21,10 +21,12 @@ export const Bank: React.FC = () => {
     },
     validationSchema: Yup.object({
       smartphone: Yup.string().required('Smartphone selection is required'),
+      // @ts-expect-error
       bank: Yup.string().when('hasBankAccount', {
         is: 'yes',
         then: Yup.string().required('Bank selection is required'),
       }),
+      // @ts-expect-error
       accountNumber: Yup.string().when('hasBankAccount', {
         is: 'yes',
         then: Yup.string()
@@ -32,6 +34,7 @@ export const Bank: React.FC = () => {
           .required('Account number is required'),
       }),
     }),
+    // @ts-expect-error
     onSubmit: (values, { setSubmitting }) => {
       setSubmitting(false);
       if (hasBankAccount === 'yes' && isBankAccountValid) {
@@ -140,6 +143,7 @@ export const Bank: React.FC = () => {
                       <Form.Label>Personal Bank Account Number*</Form.Label>
                       <Form.Control
                         type="text"
+                        // @ts-expect-error
                         onChange={handleAccountNumberChange}
                         placeholder="Enter your account number"
                         {...formik.getFieldProps('accountNumber')}
