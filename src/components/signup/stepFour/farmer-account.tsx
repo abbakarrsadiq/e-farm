@@ -100,7 +100,7 @@ export const Farmer: React.FC = () => {
 
   const handleCloseModal = () => {
     setShowModal(false);
-    navigate('/');
+    navigate('/verify');
 
    formData ?? setFormData({
       name: '',

@@ -33,7 +33,7 @@ const Login: React.FC = () => {
     validationSchema: validationSchema,
     onSubmit: async (values) => {
       console.log("Form submitted!", values);
-      setErrorMessage(null);
+      console.error('Error submitting form:');
       try {
         const response = await axios.post(
           `${API_BASE_URL}/users/login`,
