@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { SignupProvider } from './context/signupContext';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "@fontsource/inter";
 import Login from './components/login/login';
@@ -11,6 +12,7 @@ import Verify from './components/login/verify';
 function App() {
   return (
     <Router>
+      <SignupProvider>
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/verify" element={<Verify />} />
@@ -19,6 +21,8 @@ function App() {
         <Route path="/security" element={<Security />} />
         <Route path="/farmer" element={<Farmer />} />
       </Routes>
+      </SignupProvider>
+
     </Router>
   );
 }

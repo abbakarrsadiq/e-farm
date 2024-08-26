@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Path, useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { Button, Form, Row, Col } from 'react-bootstrap';
@@ -9,55 +9,46 @@ import formImage from './cow.png';
 import Modal from '../stepFive/modal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCloudArrowUp, faCheck, faChevronLeft } from '@fortawesome/free-solid-svg-icons';
+import { useSignupContext, FarmDetails } from '../../../context/signupContext';
 
 const validationSchema = Yup.object({
   name: Yup.string().required('Farm Name is required'),
-  longitude: Yup.string(),
-  latitude: Yup.string(),
-  documents: Yup.array().of(Yup.string())
+  address: Yup.string().required('Address is required'),
+  long: Yup.number().required('Longitude is required'),
+  lat: Yup.number().required('Latitude is required'),
+  docUploads: Yup.array().of(Yup.string()),
+  crops: Yup.array().of(
+    Yup.object().shape({
+      cropId: Yup.string().required('Crop is required'),
+      farmSeasonStart: Yup.string().required('Start Month is required'),
+      farmSeasonEnd: Yup.string().required('End Month is required'),
+    })
+  ).min(1, 'At least one crop must be selected'),
 });
 
 export const Farmer: React.FC = () => {
+  const { signupData, setSignupData } = useSignupContext();
   const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
   const [files, setFiles] = useState<Array<{ name: string; size: string; progress: number; complete: boolean }>>([]);
-  const [crops, setCrops] = useState<Array<{ id: number }>>([{ id: 1 }]);
-  const [formData, setFormData] = useState({
-    name: '',
-    longitude: '',
-    latitude: '',
-    crops: [] as string[],
-    documents: [] as string[],
-  });
-  const [farms, setFarms] = useState<Array<{ id: number; name: string; longitude: string; latitude: string; crops: string[]; documents: string[] }>>([
-    {
-      id: 1,
-      name: 'Buba Farm',
-      longitude: '8.0876 E',
-      latitude: '4.765 N',
-      crops: ["Millet"],
-      documents: ['Docs.pdf']
-    }
-  ]);
+  const [crops, setCrops] = useState<Array<{ id: number, farmSeasonStart: string, farmSeasonEnd: string }>>([{ 
+    id: 1, 
+    farmSeasonStart: "March", 
+    farmSeasonEnd: "September",
+  }]);
 
   const formik = useFormik({
     initialValues: {
-      name: '',
-      longitude: '',
-      latitude: '',
-      crops: [] as string[],
-      documents: [] as string[],
+      name: 'Gonar Buba',
+      address: 'Lergo Abba',
+      long: 4.764,
+      lat: 3.867,
+      docUploads: ['http'],
+      crops: [{ cropId: '1', farmSeasonStart: 'jan', farmSeasonEnd: 'jun' }],
     },
     validationSchema,
     onSubmit: (values) => {
       addFarm(values);
-      setFormData({
-        name: '',
-        longitude: '',
-        latitude: '',
-        crops: [],
-        documents: [],
-      });
       setShowModal(true);
     },
   });
@@ -68,78 +59,117 @@ export const Farmer: React.FC = () => {
       name: file.name,
       size: formatFileSize(file.size),
       progress: 0,
-      complete: false
+      complete: false,
+      url: URL.createObjectURL(file),
     }));
+    
     setFiles(prevFiles => [...prevFiles, ...newFiles]);
-
+  
     newFiles.forEach((_, index) => {
       const fakeUploadProgress = setInterval(() => {
         setFiles(prevFiles => {
           const updated = [...prevFiles];
           const fileIndex = prevFiles.length - newFiles.length + index;
           updated[fileIndex].progress += 10;
-
+  
           if (updated[fileIndex].progress >= 100) {
             clearInterval(fakeUploadProgress);
             updated[fileIndex].complete = true;
             updated[fileIndex].progress = 100;
           }
-
+  
           return updated;
         });
       }, 200);
     });
-  };
+  
 
+    const newDocUploads = selectedFiles.map(file => ({
+      url: URL.createObjectURL(file),
+    }));
+    
+
+    formik.setFieldValue('docUploads', [
+      ...formik.values.docUploads,
+      ...newDocUploads,
+    ]);
+  };
+  
   const formatFileSize = (size: number): string => {
     if (size < 1024) return `${size} bytes`;
     else if (size < 1024 * 1024) return `${(size / 1024).toFixed(2)} KB`;
     else return `${(size / (1024 * 1024)).toFixed(2)} MB`;
   };
 
-
+  type AccountApprovalStatus = 'pending' | 'approved' | 'rejected';
+  const signUpFarmer = async (signupData: any) => {
+    const accountApprovalStatus: AccountApprovalStatus = 'pending';
+    try {
+      const url = `https://www.dev.farmwarehouse.ng/api/users/signup/${encodeURIComponent(accountApprovalStatus)}`;
+      
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(signupData),
+      });
+  
+      if (!response.ok) {
+        const errorResponse = await response.json();
+        throw new Error(`Failed to sign up farmer: ${errorResponse.message}`);
+      }
+  
+      const result = await response.json();
+      console.log('API Response:', result);
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+  
+  
   const handleCloseModal = () => {
     setShowModal(false);
-    navigate('/verify');
 
-   formData ?? setFormData({
-      name: '',
-      longitude: '',
-      latitude: '',
-      crops: [],
-      documents: [],
+    signUpFarmer(signupData).then(() => {
+      formik.resetForm();
     });
   };
 
   const handleAddAnotherFarm = () => {
     setShowModal(false);
     navigate('/farmer');
-    setFormData({
-      name: '',
-      longitude: '',
-      latitude: '',
-      crops: [],
-      documents: [],
+    formik.resetForm();
+  };
+
+  const addCrop = () => {
+    setCrops(prevCrops => [...prevCrops, { 
+      id: prevCrops.length + 1, 
+      farmSeasonStart: '', 
+      farmSeasonEnd: ''
+    }]);
+  };
+
+  const addFarm = (values: typeof formik.values) => {
+    const newFarm: FarmDetails = {
+      name: values.name,
+      address: values.address,
+      long: values.long,
+      lat: values.lat,
+      docUploads: values.docUploads.map(url => ({ url })), 
+      crops: values.crops.map(crop => ({
+        cropId: crop.cropId,
+        farmSeasonStart: crop.farmSeasonStart,
+        farmSeasonEnd: crop.farmSeasonEnd,
+      }))
+    };
+  
+    setSignupData({
+      ...signupData,
+      farmDetails: [...signupData.farmDetails, newFarm],
     });
   };
-  // @ts-expect-error
-  const addCrop = (values) => {
-    setCrops(prevCrops => [...prevCrops, { id: prevCrops.length + 1 }]);
-  };
-  const addFarm = (values: typeof formik.values) => {
-    const newFarmId = farms.length + 1;
-    setFarms(prevFarms => [
-      ...prevFarms,
-      {
-        id: newFarmId,
-        name: values.name,
-        longitude: values.longitude,
-        latitude: values.latitude,
-        crops: values.crops,
-        documents: values.documents
-      }
-    ]);
-  };
+  
 
   return (
     <div className="farmer-wrapper">
@@ -223,10 +253,10 @@ export const Farmer: React.FC = () => {
                     type="text"
                     placeholder="Longtitude"
                     {...formik.getFieldProps('longtitude')}
-                    isInvalid={Boolean(formik.touched.longitude && formik.errors.latitude)}
+                    isInvalid={Boolean(formik.touched.long && formik.errors.lat)}
                   />
                   <Form.Control.Feedback type="invalid">
-                    {formik.errors.longitude}
+                    {formik.errors.long}
                   </Form.Control.Feedback>
                 </Col>
                 <Col>
@@ -236,10 +266,10 @@ export const Farmer: React.FC = () => {
                     type="text"
                     placeholder="Latitude"
                     {...formik.getFieldProps('latitude')}
-                    isInvalid={Boolean(formik.touched.longitude && formik.errors.latitude)}
+                    isInvalid={Boolean(formik.touched.long && formik.errors.lat)}
                   />
                     <Form.Control.Feedback type="invalid">
-                      {formik.errors.latitude}
+                      {formik.errors.lat}
                     </Form.Control.Feedback>
                   </div>
                 </Col>

@@ -74,7 +74,7 @@ export const Security: React.FC = () => {
           </div>
           <form onSubmit={formik.handleSubmit}>
             <div className="security-buttons">
-              <button type="submit" name="back" className="back">
+              <button type="submit" name="back" className="back" onClick={() => navigate('/bank')}>
                 Back
               </button>
               <button type="submit" name="continue" className="continue" disabled={formik.isSubmitting}>

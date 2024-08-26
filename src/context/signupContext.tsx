@@ -1,6 +1,6 @@
-import React, { createContext, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 
-type UserDetails = {
+export interface UserDetails {
   firstName: string;
   lastName: string;
   credential: string;
@@ -10,103 +10,94 @@ type UserDetails = {
   gender: string;
   resAddress: string;
   ageGroup: string;
-  hasBankAccount: string;
+  hasBankAccount: boolean;
   hasSmartphone: boolean;
-  profilePic: {
-    url: string;
-  };
-};
+  profilePic: { url: string };
+}
 
-type IdUpload = {
+export interface IdUpload {
   idType: string;
   idNumber: string;
   url: string;
-};
+}
 
-type BankDetails = {
+export interface BankDetails {
   accountNumber: number;
   bankName: string;
-};
+}
 
-type FarmDetail = {
+export interface FarmDetails {
   name: string;
   address: string;
   long: number;
   lat: number;
   docUploads: { url: string }[];
   crops: { cropId: string; farmSeasonStart: string; farmSeasonEnd: string }[];
-};
+}
 
-type SignupContextType = {
+interface SignupData {
   userDetails: UserDetails;
   idUpload: IdUpload;
   siteId: string;
   bankDetails?: BankDetails;
-  farmDetails: FarmDetail[];
-  setUserDetails: React.Dispatch<React.SetStateAction<UserDetails>>;
-  setIdUpload: React.Dispatch<React.SetStateAction<IdUpload>>;
-  setSiteId: React.Dispatch<React.SetStateAction<string>>;
-  setBankDetails: React.Dispatch<React.SetStateAction<BankDetails | undefined>>;
-  setFarmDetails: React.Dispatch<React.SetStateAction<FarmDetail[]>>;
+  farmDetails: FarmDetails[];
+}
+
+interface SignupContextProps {
+  signupData: SignupData;
+  setSignupData: React.Dispatch<React.SetStateAction<SignupData>>;
+}
+
+const SignupContext = createContext<SignupContextProps | undefined>(undefined);
+
+export const useSignupContext = () => {
+  const context = useContext(SignupContext);
+  if (!context) {
+    throw new Error('useSignupContext must be used within a SignupProvider');
+  }
+  return context;
 };
 
-const defaultValues: SignupContextType = {
-  userDetails: {
-    firstName: '',
-    lastName: '',
-    credential: '',
-    email: '',
-    password: '',
-    roleName: '',
-    gender: '',
-    resAddress: '',
-    ageGroup: '18',
-    hasBankAccount: '',
+export const SignupProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const initialUserDetails: UserDetails = {
+    firstName: 'Abubakar',
+    lastName: 'Muhammad',
+    credential: 'Sadiq',
+    email: 'abbakarrsadiq@gmail.com',
+    password: 'Abb@kar@093',
+    roleName: 'Farmer',
+    gender: 'male',
+    resAddress: '20, Khartoum Street, Wuse',
+    ageGroup: 'senior',
+    hasBankAccount: false,
     hasSmartphone: false,
-    profilePic: { url: '' }
-  },
-  idUpload: {
-    idType: '',
-    idNumber: '',
-    url: ''
-  },
-  siteId: '',
-  bankDetails: undefined,
-  farmDetails: [],
-  setUserDetails: () => {},
-  setIdUpload: () => {},
-  setSiteId: () => {},
-  setBankDetails: () => {},
-  setFarmDetails: () => {}
-};
+    profilePic: { url: '' },
+  };
 
-const SignupContext = createContext<SignupContextType>(defaultValues);
+  const initialSignupData: SignupData = {
+    userDetails: initialUserDetails,
+    idUpload: {
+      idType: 'nimc',
+      idNumber: '234567887626',
+      url: '',
+    },
+    siteId: '',
+    farmDetails: [],
+    ...(initialUserDetails.hasBankAccount && {
+      bankDetails: {
+        accountNumber: 1239876532,
+        bankName: 'Access Bank',
+      },
+    }),
+  };
 
-const SignupProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [userDetails, setUserDetails] = useState<UserDetails>(defaultValues.userDetails);
-  const [idUpload, setIdUpload] = useState<IdUpload>(defaultValues.idUpload);
-  const [siteId, setSiteId] = useState<string>(defaultValues.siteId);
-  const [bankDetails, setBankDetails] = useState<BankDetails | undefined>(defaultValues.bankDetails);
-  const [farmDetails, setFarmDetails] = useState<FarmDetail[]>(defaultValues.farmDetails);
+  const [signupData, setSignupData] = useState<SignupData>(initialSignupData);
+
+  console.log('SIGNUP DATA ARE', signupData);
 
   return (
-    <SignupContext.Provider
-      value={{
-        userDetails,
-        idUpload,
-        siteId,
-        bankDetails,
-        farmDetails,
-        setUserDetails,
-        setIdUpload,
-        setSiteId,
-        setBankDetails,
-        setFarmDetails
-      }}
-    >
+    <SignupContext.Provider value={{ signupData, setSignupData }}>
       {children}
     </SignupContext.Provider>
   );
 };
-
-export { SignupProvider, SignupContext };
